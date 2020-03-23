@@ -51,6 +51,58 @@ class Payroll extends Component {
           pay: 7600,
           description: 'hello',
         },
+        {
+          key: 5,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-05-17',
+          pay: 7600,
+          description: '这个月工资',
+        },
+        {
+          key: 6,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-06-17',
+          pay: 7600,
+          description: 'hello',
+        },
+        {
+          key: 7,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-07-17',
+          pay: 7600,
+          description: 'hello',
+        },
+        {
+          key: 8,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-08-17',
+          pay: 7600,
+          description: 'hello',
+        },
+        {
+          key: 9,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-09-17',
+          pay: 7600,
+          description: 'hello',
+        },
+        {
+          key: 10,
+          department: '研发部',
+          name: '蒋浩文',
+          time: '2020-10-17',
+          pay: 7600,
+          description: 'hello',
+        },
+
+
+
+
 
       ]
     };
