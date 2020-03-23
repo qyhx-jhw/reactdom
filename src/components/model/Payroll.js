@@ -85,8 +85,8 @@ class Payroll extends Component {
           <Legend position="top" dy={-20} marker="square" />
 
           <Tooltip />
-          {/* <Geom type="interval" position="time*pay" color="time" /> */}
-          <Geom type="line" position="time*pay" size={2} />
+          <Geom type="interval" position="time*pay" color="time" />
+          {/* <Geom type="line" position="time*pay" size={2} /> */}
           {/* <Geom
             type="point"
             position="year*value"
