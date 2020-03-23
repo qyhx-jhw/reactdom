@@ -1,0 +1,12 @@
+
+.header{
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  background: #000;
+  clear: #fff;
+}
+.header a{
+  color: rgb(10, 9, 9);
+  padding: 0px 20px;
+}

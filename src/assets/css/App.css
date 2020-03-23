@@ -1,0 +1,24 @@
+
+.login-form {
+  /* max-width: 300px; */
+  text-align: center;
+  
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.logo {
+  height: 42px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+/* .register-form {
+  max-width: 500px;
+  text-align: center;
+  clear: rgba(37, 122, 201, 0.2);
+} */
