@@ -73,8 +73,9 @@ class Home extends Component {
                                     key="sub1"
                                     title={
                                         <span>
-                                            <Icon type="user" />
-                                            <span>个人信息</span>
+                                            {/* <Icon type="user" /> */}
+                                            <Icon type="database" />
+                                            <span>管理信息</span>
                                         </span>
                                     }
                                 >

@@ -64,7 +64,7 @@ class Payroll extends Component {
           department: '研发部',
           name: '蒋浩文',
           time: '2020-06-17',
-          pay: 7600,
+          pay: 6800,
           description: 'hello',
         },
         {
@@ -72,7 +72,7 @@ class Payroll extends Component {
           department: '研发部',
           name: '蒋浩文',
           time: '2020-07-17',
-          pay: 7600,
+          pay: 8700,
           description: 'hello',
         },
         {
@@ -80,7 +80,7 @@ class Payroll extends Component {
           department: '研发部',
           name: '蒋浩文',
           time: '2020-08-17',
-          pay: 7600,
+          pay: 7900,
           description: 'hello',
         },
         {
@@ -88,7 +88,7 @@ class Payroll extends Component {
           department: '研发部',
           name: '蒋浩文',
           time: '2020-09-17',
-          pay: 7600,
+          pay: 7400,
           description: 'hello',
         },
         {
@@ -96,13 +96,9 @@ class Payroll extends Component {
           department: '研发部',
           name: '蒋浩文',
           time: '2020-10-17',
-          pay: 7600,
+          pay: 7650,
           description: 'hello',
         },
-
-
-
-
 
       ]
     };
@@ -139,15 +135,8 @@ class Payroll extends Component {
           <Tooltip />
           <Geom type="interval" position="time*pay" color="time" />
           {/* <Geom type="line" position="time*pay" size={2} /> */}
-          {/* <Geom
-            type="point"
-            position="year*value"
-            size={4}
-            shape={"circle"}
-            style={{
-              stroke: "#fff",
-              lineWidth: 1
-            }}
+          <Geom type="line" position="time*pay" size={2} />
+
           /> */}
         </Chart>
       </div>
