@@ -7,7 +7,7 @@ class Userinfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: true,//是否可见
+            visible: false,//是否可见
         };
     }
     showDrawer = () => {
