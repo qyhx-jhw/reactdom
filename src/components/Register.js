@@ -230,7 +230,7 @@ class Register extends Component {
                     )}
                 </Form.Item> */}
 
-
+                    {/* 姓名 */}
                     <Form.Item
                         label={
                             <span>

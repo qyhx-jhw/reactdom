@@ -6,9 +6,9 @@ const { Option } = Select;
 class Userinfo extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             visible: true,//是否可见
-         };
+        };
     }
     showDrawer = () => {
         this.setState({
@@ -21,20 +21,38 @@ class Userinfo extends Component {
             visible: false,
         });
     };
+    // handleSubmit = e => {
+    //     e.preventDefault();
+    //     this.props.form.validateFields((err, values) => {
+    //         if (!err) {
+    //             console.log('Received values of form: ', values);
+    //         }
+    //     });
+    // };
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                const value = {
+                    ...values,
+                    'birthday': values['birthday'].format('YYYY-MM-DD'),
+                }
+                console.log('Received values of form: ', value);
+
+            }
         });
-      };
+    };
     render() {
         const { getFieldDecorator } = this.props.form;
+        const config = {
+            rules: [{ type: 'object', required: true, message: '请选择时间!' }],
+        };
         return (
             <div>
                 <Button type="primary" onClick={this.showDrawer}>
-                    <Icon type="plus" /> 修改信息
+                    {/* <Icon type="plus" />  */}
+                    <Icon type="form" />
+                    修改信息
                 </Button>
                 <br />
                 <Drawer
@@ -47,22 +65,22 @@ class Userinfo extends Component {
                     <Form layout="vertical" hideRequiredMark>
                         <Row gutter={16}>
                             <Col span={12}>
-                                <Form.Item label="姓名">
+                                <Form.Item label="姓名：">
                                     {getFieldDecorator('name', {
-                                        rules: [{ required: true, message: '' }],
+                                        rules: [{ required: true, message: '请输入姓名' }],
                                     })(<Input placeholder="输入你的姓名" />)}
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="Url">
-                                    {getFieldDecorator('url', {
-                                        rules: [{ required: true, message: 'Please enter url' }],
+                                <Form.Item label="手机号：">
+                                    {getFieldDecorator('phone', {
+                                        rules: [{ required: true, message: '请输入手机号码' }],
                                     })(
                                         <Input
                                             style={{ width: '100%' }}
-                                            addonBefore="http://"
-                                            addonAfter=".com"
-                                            placeholder="Please enter url"
+                                            // addonBefore="http://"
+                                            // addonAfter=".com"
+                                            placeholder="请输入手机号"
                                         />,
                                     )}
                                 </Form.Item>
@@ -70,19 +88,23 @@ class Userinfo extends Component {
                         </Row>
                         <Row gutter={16}>
                             <Col span={12}>
-                                <Form.Item label="Owner">
-                                    {getFieldDecorator('owner', {
-                                        rules: [{ required: true, message: 'Please select an owner' }],
-                                    })(
-                                        <Select placeholder="Please select an owner">
-                                            <Option value="xiao">Xiaoxiao Fu</Option>
-                                            <Option value="mao">Maomao Zhou</Option>
-                                        </Select>,
-                                    )}
+                                <Form.Item label="E-mail/邮箱">
+                                    {getFieldDecorator('email', {
+                                        rules: [
+                                            {
+                                                type: 'email',
+                                                message: '输入的电子邮箱格式无效!',
+                                            },
+                                            {
+                                                required: true,
+                                                message: '请输入电子邮箱!',
+                                            },
+                                        ],
+                                    })(<Input />)}
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="Type">
+                                {/* <Form.Item label="Type">
                                     {getFieldDecorator('type', {
                                         rules: [{ required: true, message: 'Please choose the type' }],
                                     })(
@@ -91,12 +113,22 @@ class Userinfo extends Component {
                                             <Option value="public">Public</Option>
                                         </Select>,
                                     )}
+                                </Form.Item> */}
+                                <Form.Item label="性别" hasFeedback>
+                                    {getFieldDecorator('gender', {
+                                        rules: [{ required: true, message: '请选择您的性别!' }],
+                                    })(
+                                        <Select placeholder="选择性别">
+                                            <Option value="man">男</Option>
+                                            <Option value="woman">女</Option>
+                                        </Select>,
+                                    )}
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={16}>
                             <Col span={12}>
-                                <Form.Item label="Approver">
+                                {/* <Form.Item label="Approver">
                                     {getFieldDecorator('approver', {
                                         rules: [{ required: true, message: 'Please choose the approver' }],
                                     })(
@@ -105,10 +137,28 @@ class Userinfo extends Component {
                                             <Option value="tom">Tom Liu</Option>
                                         </Select>,
                                     )}
+                                </Form.Item> */}
+                                <Form.Item label='身份证号码' hasFeedback>
+                                    {getFieldDecorator('IDcard', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '请输入您的身份证号码!'
+                                            },
+                                            {
+                                                len: 18,
+                                                message: '请输入18位有效字符'
+                                            }
+                                        ],
+                                    })(<Input placeholder='末尾X需要大写' maxLength={18} />)}
                                 </Form.Item>
+
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="DateTime">
+                                <Form.Item label="出生日期" >
+                                    {getFieldDecorator('birthday', config)(<DatePicker />)}
+                                </Form.Item>
+                                {/* <Form.Item label="DateTime">
                                     {getFieldDecorator('dateTime', {
                                         rules: [{ required: true, message: 'Please choose the dateTime' }],
                                     })(
@@ -117,20 +167,20 @@ class Userinfo extends Component {
                                             getPopupContainer={trigger => trigger.parentNode}
                                         />,
                                     )}
-                                </Form.Item>
+                                </Form.Item> */}
                             </Col>
                         </Row>
                         <Row gutter={16}>
                             <Col span={24}>
-                                <Form.Item label="Description">
-                                    {getFieldDecorator('description', {
+                                <Form.Item label="常住地址：">
+                                    {getFieldDecorator('residence', {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'please enter url description',
+                                                message: '请输入地址',
                                             },
                                         ],
-                                    })(<Input.TextArea rows={4} placeholder="please enter url description" />)}
+                                    })(<Input.TextArea rows={4} placeholder="请输入地址" />)}
                                 </Form.Item>
                             </Col>
                         </Row>
