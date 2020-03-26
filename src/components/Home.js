@@ -3,6 +3,8 @@ import { Layout, Menu, Icon } from 'antd';
 // import Check_in from './model/Check_in'
 import User from './model/User'
 import Payroll from './model/Payroll'
+import Holiday from './model/Holiday'
+
 import IMG from '../assets/images/lt.jpg'
 
 import {
@@ -45,7 +47,7 @@ class Home extends Component {
                             }}
                         >
                             <div className="logo" >
-                                <img src={IMG} height='42px'></img>
+                                <img src={IMG} height='42px' alt='沙漠骆驼'></img>
                             </div>
                             <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} >
                                 <Menu.Item key="1">
@@ -68,7 +70,12 @@ class Home extends Component {
                                     薪资查询
                                     <Link to="/home/payroll"></Link>
                                 </Menu.Item>
-                                
+
+                                <Menu.Item key="4" >
+                                    <Icon type="account-book" />
+                                    请假申请
+                                    <Link to="/home/holiday"></Link>
+                                </Menu.Item>
                                 <SubMenu
                                     key="sub1"
                                     title={
@@ -102,6 +109,7 @@ class Home extends Component {
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
                                     <Route exact path="/home/user" component={User}></Route>
                                     <Route exact path="/home/payroll" component={Payroll}></Route>
+                                    <Route exact path="/home/holiday" component={Holiday}></Route>
 
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
 

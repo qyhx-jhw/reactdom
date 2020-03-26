@@ -112,7 +112,7 @@ class Payroll extends Component {
         dataIndex: '',
         key: 'x',
         // render: () => <a>Delete</a>,
-        render: () => <a>Delete</a>,
+        // render: () => <a>Delete</a>,
       },
     ];
   }

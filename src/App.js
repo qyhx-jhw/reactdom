@@ -27,7 +27,7 @@ class App extends Component {
             
           {/* <header>
               <ul>
-                <li><Link to="/">登录</Link> </li>
+                <li><Link to="/login">登录</Link> </li>
                 <li><Link to="/register">注册</Link></li>
                 <li><Link to="/home">主页</Link></li>
 
@@ -36,14 +36,14 @@ class App extends Component {
               <hr />
             </header> */}
 
-            {/* <Route exact path="/" component={LoginFrom}></Route>
-            <Route exact path="/register" component={RegistrationForm}></Route> */}
-            {/* <Route exact path="/register" >
+            <Route exact path="/login" component={LoginFrom}></Route>
+            {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
+            <Route exact path="/register" >
               <RegistrationForm/>
-            </Route> */}
+            </Route>
 
-            {/* <Route path="/home" component={Home}></Route> */}
-            <Route path="/" component={Home}></Route>
+            <Route path="/home" component={Home}></Route>
+            {/* <Route exact path="/home" component={Home}></Route> */}
 
 
 

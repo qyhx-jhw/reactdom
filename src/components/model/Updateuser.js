@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
-
+import moment from 'moment';
 const { Option } = Select;
 
 class Userinfo extends Component {
@@ -8,6 +8,15 @@ class Userinfo extends Component {
         super(props);
         this.state = {
             visible: false,//是否可见
+            data: {
+                name: '蒋浩文',
+                phone: '15716619548',
+                email: '419266148@qq.com',
+                gender: '男',
+                IDcard: '640321199711170312',
+                birthday: moment('1997-11-17', 'YYYY-MM-DD') ,
+                residence:'中卫市沙坡头区新墩东区',
+            }
         };
     }
     showDrawer = () => {
@@ -21,14 +30,6 @@ class Userinfo extends Component {
             visible: false,
         });
     };
-    // handleSubmit = e => {
-    //     e.preventDefault();
-    //     this.props.form.validateFields((err, values) => {
-    //         if (!err) {
-    //             console.log('Received values of form: ', values);
-    //         }
-    //     });
-    // };
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -46,11 +47,11 @@ class Userinfo extends Component {
         const { getFieldDecorator } = this.props.form;
         const config = {
             rules: [{ type: 'object', required: true, message: '请选择时间!' }],
+            initialValue:this.state.data.birthday
         };
         return (
             <div>
                 <Button type="primary" onClick={this.showDrawer}>
-                    {/* <Icon type="plus" />  */}
                     <Icon type="form" />
                     修改信息
                 </Button>
@@ -68,6 +69,7 @@ class Userinfo extends Component {
                                 <Form.Item label="姓名：">
                                     {getFieldDecorator('name', {
                                         rules: [{ required: true, message: '请输入姓名' }],
+                                        initialValue:this.state.data.name
                                     })(<Input placeholder="输入你的姓名" />)}
                                 </Form.Item>
                             </Col>
@@ -75,6 +77,7 @@ class Userinfo extends Component {
                                 <Form.Item label="手机号：">
                                     {getFieldDecorator('phone', {
                                         rules: [{ required: true, message: '请输入手机号码' }],
+                                        initialValue:this.state.data.phone
                                     })(
                                         <Input
                                             style={{ width: '100%' }}
@@ -98,25 +101,18 @@ class Userinfo extends Component {
                                             {
                                                 required: true,
                                                 message: '请输入电子邮箱!',
-                                            },
+                                            },  
                                         ],
-                                    })(<Input />)}
+                                        initialValue: this.state.data.email
+                                    })(<Input placeholder='邮箱地址'/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                {/* <Form.Item label="Type">
-                                    {getFieldDecorator('type', {
-                                        rules: [{ required: true, message: 'Please choose the type' }],
-                                    })(
-                                        <Select placeholder="Please choose the type">
-                                            <Option value="private">Private</Option>
-                                            <Option value="public">Public</Option>
-                                        </Select>,
-                                    )}
-                                </Form.Item> */}
+                               
                                 <Form.Item label="性别" hasFeedback>
                                     {getFieldDecorator('gender', {
                                         rules: [{ required: true, message: '请选择您的性别!' }],
+                                        initialValue: this.state.data.gender
                                     })(
                                         <Select placeholder="选择性别">
                                             <Option value="man">男</Option>
@@ -128,16 +124,6 @@ class Userinfo extends Component {
                         </Row>
                         <Row gutter={16}>
                             <Col span={12}>
-                                {/* <Form.Item label="Approver">
-                                    {getFieldDecorator('approver', {
-                                        rules: [{ required: true, message: 'Please choose the approver' }],
-                                    })(
-                                        <Select placeholder="Please choose the approver">
-                                            <Option value="jack">Jack Ma</Option>
-                                            <Option value="tom">Tom Liu</Option>
-                                        </Select>,
-                                    )}
-                                </Form.Item> */}
                                 <Form.Item label='身份证号码' hasFeedback>
                                     {getFieldDecorator('IDcard', {
                                         rules: [
@@ -150,6 +136,7 @@ class Userinfo extends Component {
                                                 message: '请输入18位有效字符'
                                             }
                                         ],
+                                        initialValue: this.state.data.IDcard
                                     })(<Input placeholder='末尾X需要大写' maxLength={18} />)}
                                 </Form.Item>
 
@@ -158,16 +145,6 @@ class Userinfo extends Component {
                                 <Form.Item label="出生日期" >
                                     {getFieldDecorator('birthday', config)(<DatePicker />)}
                                 </Form.Item>
-                                {/* <Form.Item label="DateTime">
-                                    {getFieldDecorator('dateTime', {
-                                        rules: [{ required: true, message: 'Please choose the dateTime' }],
-                                    })(
-                                        <DatePicker.RangePicker
-                                            style={{ width: '100%' }}
-                                            getPopupContainer={trigger => trigger.parentNode}
-                                        />,
-                                    )}
-                                </Form.Item> */}
                             </Col>
                         </Row>
                         <Row gutter={16}>
@@ -180,6 +157,7 @@ class Userinfo extends Component {
                                                 message: '请输入地址',
                                             },
                                         ],
+                                        initialValue: this.state.data.residence
                                     })(<Input.TextArea rows={4} placeholder="请输入地址" />)}
                                 </Form.Item>
                             </Col>

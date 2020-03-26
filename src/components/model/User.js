@@ -34,9 +34,9 @@ class User extends Component {
                     <Descriptions.Item label="性别：" >{this.state.Info.gender}</Descriptions.Item>
                     <Descriptions.Item label="手机号码：">{this.state.Info.phone}</Descriptions.Item>
                     <Descriptions.Item label="邮箱：">{this.state.Info.email}</Descriptions.Item>
-                    <Descriptions.Item label="出生日期：" span={2}>{this.state.Info.date_picker}</Descriptions.Item>
+                    <Descriptions.Item label="出生日期：" span={3}>{this.state.Info.date_picker}</Descriptions.Item>
                     <Descriptions.Item label="身份证号：" span={3}>{this.state.Info.IDcard}</Descriptions.Item>
-                    <Descriptions.Item label="常住地：" span={2}>{this.state.Info.residence}</Descriptions.Item>
+                    <Descriptions.Item label="常住地：" span={1}>{this.state.Info.residence}</Descriptions.Item>
                 </Descriptions>
                 <br />
                 <Updateuser/>
@@ -44,7 +44,7 @@ class User extends Component {
                 <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
                     <Descriptions.Item label="入职时间">{this.state.job_info.start}</Descriptions.Item>
                     <Descriptions.Item label="离职时间" span={2}>{this.state.job_info.end}</Descriptions.Item>
-                    <Descriptions.Item label="基础工资" span={3}>￥{this.state.job_info.pay}</Descriptions.Item>
+                    <Descriptions.Item label="基础工资" span={1}>￥{this.state.job_info.pay}</Descriptions.Item>
                     <Descriptions.Item label="所在部门">{this.state.job_info.department}</Descriptions.Item>
                     <Descriptions.Item label="所在岗位" span={2}>{this.state.job_info.position}</Descriptions.Item>
                     <Descriptions.Item label="个人介绍" span={1}>{this.state.job_info.Introduction}
