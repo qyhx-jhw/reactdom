@@ -21,11 +21,12 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                let url=' http://192.168.1.11:8000/'
+                console.log('nnnnn:',values.username,values.password)
+                let url='api/user/register'
                 axios.post(
                     url, {
-                    firstName: 'Fred',
-                    lastName: 'Flintstone'
+                    phone: values.username,
+                    password: values.password
                   })
                   .then(function (response) {
                     console.log(response);
