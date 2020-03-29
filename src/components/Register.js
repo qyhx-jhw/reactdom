@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-
+import axios from 'axios' //消息处理
 import {
     Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, DatePicker,
 } from 'antd';
@@ -21,57 +21,6 @@ moment.locale('zh-cn');
 const { Option } = Select;
 // const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
-    {
-        value: '宁夏',
-        label: '宁夏',
-        children: [
-            {
-                value: '中卫',
-                label: '中卫',
-                children: [
-                    {
-                        value: '沙坡头',
-                        label: '沙坡头',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: '浙江',
-        label: '浙江',
-        children: [
-            {
-                value: '杭州',
-                label: '杭州',
-                children: [
-                    {
-                        value: '西湖',
-                        label: '西湖',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: '江苏',
-        label: '江苏',
-        children: [
-            {
-                value: '南京',
-                label: '南京',
-                children: [
-                    {
-                        value: '中华门',
-                        label: '中华门',
-                    },
-                ],
-            },
-        ],
-    },
-];
-
 
 class Register extends Component {
     constructor(props) {
@@ -82,13 +31,15 @@ class Register extends Component {
             confirmDirty: false,
             autoCompleteResult: [],//
             msg: '我承诺不会乱用注册信息',
-            ID: 'TencentCaptcha'
+            ID: 'TencentCaptcha',
+            statusText:''
         };
     }
 
 
     handleSubmit = e => {
         e.preventDefault();
+        const _this = this
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const value = {
@@ -96,9 +47,33 @@ class Register extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-
+                let url = 'api/user/register'
+                axios.post(
+                    url, {
+                    name: value.name,
+                    email: value.email,
+                    phone: value.phone,
+                    password: value.password,
+                    gender: value.gender,
+                    birthday: value.birthday,
+                    IDcard: value.IDcard,
+                    residence: value.residence
+                })
+                    .then(function (response) {
+                        console.log('response', response);
+                        if (response.statusText==='OK') {
+                            _this.setState({
+                                statusText:'OK'
+                            })
+                        alert('注册成功')
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         });
+        
     };
 
     handleConfirmBlur = e => {
@@ -168,28 +143,35 @@ class Register extends Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>,
-        );
+        // const prefixSelector = getFieldDecorator('prefix', {
+        //     initialValue: '86',
+        // })(
+        //     <Select style={{ width: 70 }}>
+        //         <Option value="86">+86</Option>
+        //         <Option value="87">+87</Option>
+        //     </Select>,
+        // );
         const config = {
             rules: [{ type: 'object', required: true, message: '请选择时间!' }],
         };
-
+        console.log('是否：：：',this.state.statusText)
         // const websiteOptions = autoCompleteResult.map(website => (
         //     <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
         // ));
         return (
             <div style={{ padding: '10% 30%' }}>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form">
-                    <Form.Item label="电话号码">
+                    <Form.Item label="电话号码" hasFeedback>
                         {getFieldDecorator('phone', {
-                            rules: [{ required: true, message: '请输入您的电话号码!' }],
-                        })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
+                            rules: [{
+                                required: true,
+                                message: '请输入您的电话号码!'
+                            }, {
+                                len: 11,
+                                message: '请满足11位号码'
+                            }
+                            ],
+                        })(<Input style={{ width: '100%' }} maxLength={11} />)}
                     </Form.Item>
 
 
@@ -252,8 +234,8 @@ class Register extends Component {
                             rules: [{ required: true, message: '请选择您的性别!' }],
                         })(
                             <Select placeholder="选择性别">
-                                <Option value="man">男</Option>
-                                <Option value="woman">女</Option>
+                                <Option value="男">男</Option>
+                                <Option value="女">女</Option>
                             </Select>,
                         )}
                     </Form.Item>
@@ -277,14 +259,24 @@ class Register extends Component {
                         })(<Input placeholder='末尾X需要大写' maxLength={18} />)}
                     </Form.Item>
 
-                    <Form.Item label="常住地址">
+                    {/* <Form.Item label="常住地址">
                         {getFieldDecorator('residence', {
                             initialValue: ['宁夏', '中卫', '沙坡头'],
                             rules: [
                                 { type: 'array', required: true, message: '请选择您的惯常住所!' },
                             ],
                         })(<Cascader options={residences} />)}
+                    </Form.Item> */}
+
+                    <Form.Item label="常住地址" hasFeedback>
+                        {getFieldDecorator('residence', {
+                            rules: [{
+                                required: false,
+                                message: '请输入常住地址!'
+                            }],
+                        })(<Input style={{ width: '100%' }} />)}
                     </Form.Item>
+
 
                     <Form.Item label="E-mail/邮箱">
                         {getFieldDecorator('email', {
@@ -352,7 +344,7 @@ class Register extends Component {
                             注册
                     </Button>
                     </Form.Item>
-                    
+
                 </Form>
             </div>
         );
