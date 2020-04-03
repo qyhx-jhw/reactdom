@@ -126,7 +126,7 @@ class Payroll extends Component {
           expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
           dataSource={this.state.data}
         />
-        1
+        
         <Chart width={600} height={400} data={this.state.data} scale={this.state.cols}>
           <Axis name="time" title />
           <Axis name="pay" title />
@@ -137,7 +137,7 @@ class Payroll extends Component {
           {/* <Geom type="line" position="time*pay" size={2} /> */}
           <Geom type="line" position="time*pay" size={2} />
 
-          /> */}
+          
         </Chart>
       </div>
     );

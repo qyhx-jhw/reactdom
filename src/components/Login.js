@@ -114,7 +114,7 @@ render() {
                 </Form.Item>
             </Form>
 
-            <QRCode value="http://192.168.1.2:3000/" />,
+            {/* <QRCode value="http://192.168.1.2:3000/" />, */}
 
         </div>
     );

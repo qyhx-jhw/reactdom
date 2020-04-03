@@ -96,8 +96,13 @@ class Home extends Component {
 
                         </Sider>
                         <Layout>
-                            <Header style={{ background: 'rgba(37, 122, 201, 0.2)', textAlign: 'center', padding: 0 }} >
-                                header
+                            <Header style={{
+                                // background: 'rgba(37, 122, 201, 0.2)',
+                                background: '#ffff',
+
+                                textAlign: 'center', padding: 0
+                            }} >
+                                
                             </Header>
 
                             <Content style={{ margin: '20px 16px 0' }}>
@@ -116,7 +121,7 @@ class Home extends Component {
                                 </div>
                             </Content>
 
-                            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                            <Footer style={{ textAlign: 'center' }}>人事管理系统 ©2020 宁夏快乐西游</Footer>
                         </Layout>
                     </Layout>,
                     </Router>

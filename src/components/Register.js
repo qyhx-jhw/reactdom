@@ -305,40 +305,28 @@ class Register extends Component {
                         </AutoComplete>,
                     )}
                 </Form.Item> */}
-                    <Form.Item label="Captcha/验证码" extra="我们必须确保您正常注册.">
+                    {/* <Form.Item label="Captcha/验证码" extra="我们必须确保您正常注册.">
                         <Row gutter={8}>
-                            {/* <Col span={12}>
-                                {getFieldDecorator('captcha', {
-                                    rules: [{ required: true, message: '请输入您获得的验证码!' }],
-                                })(<Input />)}
-                            </Col> */}
                             <Col span={12}>
 
                                 <Captcha id={this.state.ID} key='1'></Captcha>
 
-                                {/* <Button
-                                    type="dashed"
-                                    id='TencentCaptcha'
-                                    data-appid="2015130461"
-                                    data-cbfn="callback"
-                                    className="login-form-button"
-                                >获取验证码</Button> */}
                             </Col>
                         </Row>
-                    </Form.Item>
-                    <Form.Item {...tailFormItemLayout}>
+                    </Form.Item> */}
+                    {/* <Form.Item {...tailFormItemLayout}>
                         {getFieldDecorator('agreement', {
                             valuePropName: 'checked',
                         })(
                             <Checkbox>
                                 我已同意
                             <Tooltip title={this.state.msg}>
-                                    {/* <Icon type="question-circle-o" /> */}
+                                    
                                     <a href='111'>协议</a>
                                 </Tooltip>
                             </Checkbox>,
                         )}
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
                             注册
