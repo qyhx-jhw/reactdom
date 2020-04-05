@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
 import moment from 'moment';
+import axios from 'axios' 
 const { Option } = Select;
 
 class Userinfo extends Component {
@@ -9,19 +10,30 @@ class Userinfo extends Component {
         this.state = {
             visible: false,//是否可见
             data: {
-                name: '蒋浩文',
-                phone: '15716619548',
-                email: '419266148@qq.com',
-                gender: '男',
-                IDcard: '640321199711170312',
-                birthday: moment('1997-11-17', 'YYYY-MM-DD') ,
-                residence:'中卫市沙坡头区新墩东区',
+                name: '',
+                phone: '',
+                email: '',
+                gender: '',
+                IDcard: '',
+                birthday: '',
+                residence:'',
             }
         };
     }
+
+    
     showDrawer = () => {
         this.setState({
             visible: true,
+            data: {
+                name: this.props.info.name,
+                phone: this.props.info.phone,
+                email: this.props.info.email,
+                gender: this.props.info.gender,
+                IDcard: this.props.info.IDcard,
+                birthday: moment(this.props.info.birthday, 'YYYY-MM-DD') ,
+                residence:this.props.info.residence,
+            }
         });
     };
 
@@ -32,6 +44,7 @@ class Userinfo extends Component {
     };
     handleSubmit = e => {
         e.preventDefault();
+        const _this = this
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const value = {
@@ -39,7 +52,29 @@ class Userinfo extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-
+                // let url = 'api/register'
+                // axios.post(
+                //     url, {
+                //     name: value.name,
+                //     email: value.email,
+                //     phone: value.phone,
+                //     gender: value.gender,
+                //     birthday: value.birthday,
+                //     IDcard: value.IDcard,
+                //     residence: value.residence
+                // })
+                    // .then(function (response) {
+                    //     console.log('response', response);
+                    //     if (response.statusText==='OK') {
+                    //         _this.setState({
+                    //             statusText:'OK'
+                    //         })
+                    //     alert('注册成功')
+                    //     }
+                    // })
+                    // .catch(function (error) {
+                    //     console.log(error);
+                    // });
             }
         });
     };

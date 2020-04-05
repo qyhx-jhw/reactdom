@@ -13,7 +13,7 @@ class Login extends Component {
         super(props);
         this.state = {
             mgs: '我是登录界面',
-            status: 0
+            id: ''
         };
     }
 
@@ -25,74 +25,74 @@ class Login extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 console.log('nnnnn:', values.phone, values.password)
-                let url = 'api/user/login'
+                let url = 'api/login'
                 axios.post(
                     url, {
                     phone: values.phone,
                     password: values.password
                 })
                     .then(function (response) {
-                        console.log('00', response);
+                        console.log('00', response, response.data.id);
                         if (response.status === 200) {
                             _this.setState({
-                                status: 200
+                                id: response.data.id
                             })
-                            history.push('/home');
-                    }
+                            history.push(`/home?id=${_this.state.id}`);
+                        }
 
                     })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-});
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        });
     };
 
-render() {
-    const { getFieldDecorator } = this.props.form;
-    console.log(this.state.status)
-    return (
-        <div style={{ padding: '15% 35%' }}>
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <Form.Item>
-                    {getFieldDecorator('phone', {
-                        rules: [{ required: true, message: '请输入你的用户名!' }],
-                    })(
-                        <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="用户名：手机号码"
-                        />,
-                    )}
-                </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('password', {
-                        rules: [{ required: true, message: '请输入你的密码!' }],
-                    })(
-                        <Input
-                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            type="password"
-                            placeholder="密码"
-                        />,
-                    )}
+    render() {
+        const { getFieldDecorator } = this.props.form;
+        // console.log('用户id',this.state.id)
+        return (
+            <div style={{ padding: '15% 35%' }}>
+                <Form onSubmit={this.handleSubmit} className="login-form">
+                    <Form.Item>
+                        {getFieldDecorator('phone', {
+                            rules: [{ required: true, message: '请输入你的用户名!' }],
+                        })(
+                            <Input
+                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="用户名：手机号码"
+                            />,
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        {getFieldDecorator('password', {
+                            rules: [{ required: true, message: '请输入你的密码!' }],
+                        })(
+                            <Input
+                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                type="password"
+                                placeholder="密码"
+                            />,
+                        )}
 
-                </Form.Item>
+                    </Form.Item>
 
-                <Form.Item>
-                    <Button
-                        type="dashed"
-                        // id='TencentCaptcha'
-                        id={this.state.ID}
-                        data-appid="2015130461"
-                        data-cbfn="callback"
-                        className="login-form-button"
-                    >获取验证码</Button>
-                    {/* <Captcha id={this.state.ID} key='2'></Captcha> */}
+                    <Form.Item>
+                        <Button
+                            type="dashed"
+                            // id='TencentCaptcha'
+                            id={this.state.ID}
+                            data-appid="2015130461"
+                            data-cbfn="callback"
+                            className="login-form-button"
+                        >获取验证码</Button>
+                        {/* <Captcha id={this.state.ID} key='2'></Captcha> */}
 
-                </Form.Item>
+                    </Form.Item>
 
 
-                <Form.Item>
-                    {/* {getFieldDecorator('remember', {
+                    <Form.Item>
+                        {/* {getFieldDecorator('remember', {
                             valuePropName: 'checked',
                             initialValue: true,
                         })(<Checkbox>记住账号</Checkbox>)}
@@ -100,25 +100,25 @@ render() {
                             忘记密码
                         </a> */}
 
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        登录
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                            登录
                         </Button>
 
-                    {/* <a href="">现在去注册</a> */}
-                    {/* <Link to="/register">现在去注册</Link> */}
-                    <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.chenge}>
-                        <Link to="/register">新用户注册</Link>
-                        {/* <a href='http://localhost:3000/register'>新用户注册</a> */}
-                    </Button>
+                        {/* <a href="">现在去注册</a> */}
+                        {/* <Link to="/register">现在去注册</Link> */}
+                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.chenge}>
+                            <Link to="/register">新用户注册</Link>
+                            {/* <a href='http://localhost:3000/register'>新用户注册</a> */}
+                        </Button>
 
-                </Form.Item>
-            </Form>
+                    </Form.Item>
+                </Form>
 
-            {/* <QRCode value="http://192.168.1.2:3000/" />, */}
+                {/* <QRCode value="http://192.168.1.2:3000/" />, */}
 
-        </div>
-    );
-}
+            </div>
+        );
+    }
 }
 const LoginForm = Form.create({ name: 'normal_login' })(Login);
 export default LoginForm;

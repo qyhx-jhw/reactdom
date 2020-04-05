@@ -47,7 +47,7 @@ class Register extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-                let url = 'api/user/register'
+                let url = 'api/register'
                 axios.post(
                     url, {
                     name: value.name,

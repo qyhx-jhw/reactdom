@@ -45,9 +45,6 @@ class App extends Component {
             <Route path="/home" component={Home}></Route>
             {/* <Route exact path="/home" component={Home}></Route> */}
 
-
-
-
           </div>
         </Router>
 

@@ -4,7 +4,7 @@ import { Layout, Menu, Icon } from 'antd';
 import User from './model/User'
 import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
-
+import url from 'url'
 import IMG from '../assets/images/lt.jpg'
 
 import {
@@ -18,16 +18,29 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            userid:'1'
         };
     }
+
+    componentDidMount() {
+        //获取动态路由的传值
+        // console.log(url.parse(this.props.location.search, true))
+        var aid = url.parse(this.props.location.search, true).query;
+        console.log(aid)
+        this.setState({
+            userid:aid.id
+        })
+    }
+
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
     }
     render() {
         // const { open } = this.state.open
-        console.log('open', this.state.open)
+        console.log('用户id', this.state.userid)
+
         return (
             <div>
                 <Router>
@@ -49,7 +62,7 @@ class Home extends Component {
                             <div className="logo" >
                                 <img src={IMG} height='42px' alt='沙漠骆驼'></img>
                             </div>
-                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} >
+                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']} >
                                 <Menu.Item key="1">
                                    
                                     <Icon type="smile" theme="outlined" />
@@ -61,7 +74,7 @@ class Home extends Component {
                                 <Menu.Item key="2" >
                                     <Icon type="user" />
                                     个人信息
-                                    <Link to="/home/user"></Link>
+                                    <Link to={`/home/user?uid=${this.state.userid}`}></Link>
 
                                 </Menu.Item>
 
@@ -86,11 +99,11 @@ class Home extends Component {
                                         </span>
                                     }
                                 >
-                                    <Menu.Item key="4">
+                                    <Menu.Item key="5">
                                     <Link to='/home/Tom'>Tom</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="5">Bill</Menu.Item>
-                                    <Menu.Item key="6">Alex</Menu.Item>
+                                    <Menu.Item key="6">Bill</Menu.Item>
+                                    <Menu.Item key="7">Alex</Menu.Item>
                                 </SubMenu>
                             </Menu>
 
@@ -99,7 +112,6 @@ class Home extends Component {
                             <Header style={{
                                 // background: 'rgba(37, 122, 201, 0.2)',
                                 background: '#ffff',
-
                                 textAlign: 'center', padding: 0
                             }} >
                                 
@@ -109,15 +121,13 @@ class Home extends Component {
                                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 
                                     {/* <h1>hello world</h1> */}
-
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route exact path="/home/user" component={User}></Route>
-                                    <Route exact path="/home/payroll" component={Payroll}></Route>
+                                    <Route exact path="/home/" component={User}></Route>
                                     <Route exact path="/home/holiday" component={Holiday}></Route>
+                                    <Route exact path="/home/payroll" component={Payroll}></Route>
 
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
-
                                 </div>
                             </Content>
 

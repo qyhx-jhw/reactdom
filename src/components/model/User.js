@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { Descriptions } from 'antd';
 import Updateuser from './Updateuser'
+import url from 'url'
+import axios from 'axios' 
 class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            uid:'',
             Info: {//员工信息
-                phone: '15716619548',
-                name: '蒋浩文',
-                gender: '男',
-                date_picker: '1997-11-17',
-                IDcard: '640321199711170312',
-                residence: '中卫市沙坡头区新墩东区',
-                email: '419266148@qq.com'
+                phone: '',
+                name: '',
+                gender: '',
+                birthday: '',
+                IDcard: '',
+                residence: '',
+                email: ''
             },
             job_info: {//职位信息
                 start: '2019-6-1',
@@ -26,7 +28,49 @@ class User extends Component {
 
         };
     }
+    componentDidMount() {
+        //获取动态路由的传值
+        // console.log(url.parse(this.props.location.search, true))
+        var aid = url.parse(this.props.location.search, true).query;
+        // console.log('88888',aid.uid)
+        this.setState({
+            uid:aid.uid
+        })
+        let surl = '/api/info'
+        const _this =this
+        axios.get(surl, {
+            params: {
+            //   ID: this.state.uid
+                id:1
+            }
+          })
+          .then(function (response) {
+              console.log('get成功', response.data);
+            //   info=response.data
+              _this.setState({
+                Info:{//员工信息
+                    phone: response.data.phone,
+                    name: response.data.name,
+                    gender: response.data.gender,
+                    birthday: response.data.birthday,
+                    IDcard: response.data.IDcard,
+                    residence: response.data.residence,
+                    email: response.data.email
+                },
+              })
+          })
+          .catch(function (error) {
+            console.log('get失败',error);
+          })
+        //   .finally(function () {
+        //     // always executed
+        //   });  
+
+
+    }
     render() {
+        // console.log('999',this.state.uid)
+        console.log('999',this.state.Info.phone)
         return (
             <div>
                 <Descriptions title="员工信息" layout="horizontal" bordered="true" size='small'>
@@ -34,12 +78,12 @@ class User extends Component {
                     <Descriptions.Item label="性别：" >{this.state.Info.gender}</Descriptions.Item>
                     <Descriptions.Item label="手机号码：">{this.state.Info.phone}</Descriptions.Item>
                     <Descriptions.Item label="邮箱：">{this.state.Info.email}</Descriptions.Item>
-                    <Descriptions.Item label="出生日期：" span={3}>{this.state.Info.date_picker}</Descriptions.Item>
+                    <Descriptions.Item label="出生日期：" span={3}>{this.state.Info.birthday}</Descriptions.Item>
                     <Descriptions.Item label="身份证号：" span={3}>{this.state.Info.IDcard}</Descriptions.Item>
                     <Descriptions.Item label="常住地：" span={1}>{this.state.Info.residence}</Descriptions.Item>
                 </Descriptions>
                 <br />
-                <Updateuser/>
+                <Updateuser info={this.state.Info} />
                 <br />
                 <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
                     <Descriptions.Item label="入职时间">{this.state.job_info.start}</Descriptions.Item>
