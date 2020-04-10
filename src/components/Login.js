@@ -3,10 +3,13 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link, Redirect } from "react-router-dom";
 // var React = require('react');
 import axios from 'axios' //消息处理
-
+import { extendObservable } from 'mobx'
+import { observer } from 'mobx-react'
+import store from 'store'
 // import Captcha from './Captcha'
 var QRCode = require('qrcode.react');//二维码
 
+store.addPlugin(require('store/plugins/expire'));
 
 class Login extends Component {
     constructor(props) {
@@ -15,12 +18,15 @@ class Login extends Component {
             mgs: '我是登录界面',
             id: ''
         };
+        extendObservable(this, {
+            loggedin : false  //被监视者
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         const _this = this
-        let { history } = this.props
+        // let { history } = this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
@@ -33,12 +39,17 @@ class Login extends Component {
                 })
                     .then(function (response) {
                         console.log('00', response, response.data.id);
-                        if (response.status === 200) {
-                            _this.setState({
-                                id: response.data.id
-                            })
-                            history.push(`/home?id=${_this.state.id}`);
-                        }
+                        store.set('token',
+                            response.data.token,
+                            (new Date()).getTime() + (8 * 3600 * 1000));
+                             _this.loggedin= true;
+                        // if (response.status === 200) {
+                        //     _this.setState({
+                        //         id: response.data.id
+                        //     })
+                        //     _this.loggedin = true;
+                            // history.push(`/home?id=${_this.state.id}`);
+                        // }
 
                     })
                     .catch(function (error) {
@@ -51,6 +62,11 @@ class Login extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         // console.log('用户id',this.state.id)
+        
+        if (this.loggedin) {
+            console.log('挑转成功')
+            return <Redirect to='/home' />
+        }
         return (
             <div style={{ padding: '15% 35%' }}>
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -120,5 +136,5 @@ class Login extends Component {
         );
     }
 }
-const LoginForm = Form.create({ name: 'normal_login' })(Login);
+const LoginForm = Form.create({ name: 'normal_login' })(observer(Login));
 export default LoginForm;

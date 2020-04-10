@@ -28,46 +28,46 @@ class User extends Component {
 
         };
     }
-    componentDidMount() {
-        //获取动态路由的传值
-        // console.log(url.parse(this.props.location.search, true))
-        var aid = url.parse(this.props.location.search, true).query;
-        // console.log('88888',aid.uid)
-        this.setState({
-            uid:aid.uid
-        })
-        let surl = '/api/info'
-        const _this =this
-        axios.get(surl, {
-            params: {
-            //   ID: this.state.uid
-                id:1
-            }
-          })
-          .then(function (response) {
-              console.log('get成功', response.data);
-            //   info=response.data
-              _this.setState({
-                Info:{//员工信息
-                    phone: response.data.phone,
-                    name: response.data.name,
-                    gender: response.data.gender,
-                    birthday: response.data.birthday,
-                    IDcard: response.data.IDcard,
-                    residence: response.data.residence,
-                    email: response.data.email
-                },
-              })
-          })
-          .catch(function (error) {
-            console.log('get失败',error);
-          })
-        //   .finally(function () {
-        //     // always executed
-        //   });  
+    // componentDidMount() {
+    //     //获取动态路由的传值
+    //     // console.log(url.parse(this.props.location.search, true))
+    //     var aid = url.parse(this.props.location.search, true).query;
+    //     // console.log('88888',aid.uid)
+    //     this.setState({
+    //         uid:aid.uid
+    //     })
+    //     let surl = '/api/info'
+    //     const _this =this
+    //     axios.get(surl, {
+    //         params: {
+    //         //   ID: this.state.uid
+    //             id:1
+    //         }
+    //       })
+    //       .then(function (response) {
+    //           console.log('get成功', response.data);
+    //         //   info=response.data
+    //           _this.setState({
+    //             Info:{//员工信息
+    //                 phone: response.data.phone,
+    //                 name: response.data.name,
+    //                 gender: response.data.gender,
+    //                 birthday: response.data.birthday,
+    //                 IDcard: response.data.IDcard,
+    //                 residence: response.data.residence,
+    //                 email: response.data.email
+    //             },
+    //           })
+    //       })
+    //       .catch(function (error) {
+    //         console.log('get失败',error);
+    //       })
+    //     //   .finally(function () {
+    //     //     // always executed
+    //     //   });  
 
 
-    }
+    // }
     render() {
         // console.log('999',this.state.uid)
         console.log('999',this.state.Info.phone)
