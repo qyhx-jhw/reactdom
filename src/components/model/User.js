@@ -6,8 +6,9 @@ import axios from 'axios'
 class User extends Component {
     constructor(props) {
         super(props);
+        var aid = url.parse(this.props.location.search, true).query;
         this.state = {
-            uid:'',
+            userid:aid.userid,
             Info: {//员工信息
                 phone: '',
                 name: '',
@@ -28,49 +29,49 @@ class User extends Component {
 
         };
     }
-    // componentDidMount() {
-    //     //获取动态路由的传值
-    //     // console.log(url.parse(this.props.location.search, true))
-    //     var aid = url.parse(this.props.location.search, true).query;
-    //     // console.log('88888',aid.uid)
-    //     this.setState({
-    //         uid:aid.uid
-    //     })
-    //     let surl = '/api/info'
-    //     const _this =this
-    //     axios.get(surl, {
-    //         params: {
-    //         //   ID: this.state.uid
-    //             id:1
-    //         }
-    //       })
-    //       .then(function (response) {
-    //           console.log('get成功', response.data);
-    //         //   info=response.data
-    //           _this.setState({
-    //             Info:{//员工信息
-    //                 phone: response.data.phone,
-    //                 name: response.data.name,
-    //                 gender: response.data.gender,
-    //                 birthday: response.data.birthday,
-    //                 IDcard: response.data.IDcard,
-    //                 residence: response.data.residence,
-    //                 email: response.data.email
-    //             },
-    //           })
-    //       })
-    //       .catch(function (error) {
-    //         console.log('get失败',error);
-    //       })
-    //     //   .finally(function () {
-    //     //     // always executed
-    //     //   });  
+    componentDidMount() {
+        //获取动态路由的传值
+        // console.log(url.parse(this.props.location.search, true))
+        // var aid = url.parse(this.props.location.search, true).query;
+        // // console.log('88888',aid.uid)
+        // this.setState({
+        //     userid:aid.userid
+        // })
+        let surl = '/api/user/info'
+        const _this =this
+        axios.get(surl, {
+            params: {
+            //   ID: this.state.uid
+                id:this.state.userid
+            }
+          })
+          .then(function (response) {
+              console.log('get成功', response.data);
+            //   info=response.data
+              _this.setState({
+                Info:{//员工信息
+                    phone: response.data.phone,
+                    name: response.data.name,
+                    gender: response.data.gender,
+                    birthday: response.data.birthday,
+                    IDcard: response.data.IDcard,
+                    residence: response.data.residence,
+                    email: response.data.email
+                },
+              })
+          })
+          .catch(function (error) {
+            console.log('get失败',error);
+          })
+        //   .finally(function () {
+        //     // always executed
+        //   });  
 
 
-    // }
+    }
     render() {
-        // console.log('999',this.state.uid)
-        console.log('999',this.state.Info.phone)
+        console.log('个人信息的id',this.state.userid)
+        // console.log('999',this.state.Info.phone)
         return (
             <div>
                 <Descriptions title="员工信息" layout="horizontal" bordered="true" size='small'>

@@ -5,22 +5,32 @@ import { Link, Redirect } from "react-router-dom";
 import axios from 'axios' //消息处理
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
+import userServer from '../service/user'
 import store from 'store'
 // import Captcha from './Captcha'
+
 var QRCode = require('qrcode.react');//二维码
 
 store.addPlugin(require('store/plugins/expire'));
 
 class Login extends Component {
+    render() {
+        return (
+            <LoginForm service={userServer} />
+        );
+    }
+}
+
+
+
+
+class _Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             mgs: '我是登录界面',
-            id: ''
+            userid: ''
         };
-        extendObservable(this, {
-            loggedin : false  //被监视者
-        })
     }
 
     handleSubmit = (e) => {
@@ -29,43 +39,25 @@ class Login extends Component {
         // let { history } = this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                console.log('nnnnn:', values.phone, values.password)
-                let url = 'api/login'
-                axios.post(
-                    url, {
-                    phone: values.phone,
-                    password: values.password
-                })
-                    .then(function (response) {
-                        console.log('00', response, response.data.id);
-                        store.set('token',
-                            response.data.token,
-                            (new Date()).getTime() + (8 * 3600 * 1000));
-                             _this.loggedin= true;
-                        // if (response.status === 200) {
-                        //     _this.setState({
-                        //         id: response.data.id
-                        //     })
-                        //     _this.loggedin = true;
-                            // history.push(`/home?id=${_this.state.id}`);
-                        // }
-
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                // console.log('Received values of form: ', values);
+                let phone = values.phone
+                let password = values.password
+                this.props.service.login(phone, password)
+                // this.setState({
+                //     userid: this.props.service.id
+                // })
             }
         });
     };
 
+
     render() {
         const { getFieldDecorator } = this.props.form;
-        // console.log('用户id',this.state.id)
-        
-        if (this.loggedin) {
-            console.log('挑转成功')
-            return <Redirect to='/home' />
+
+        if (this.props.service.succeed) {
+            console.log('跳转成功')
+
+            return <Redirect to={`/home?userid=${this.props.service.id}`} />
         }
         return (
             <div style={{ padding: '15% 35%' }}>
@@ -96,8 +88,8 @@ class Login extends Component {
                     <Form.Item>
                         <Button
                             type="dashed"
-                            // id='TencentCaptcha'
-                            id={this.state.ID}
+                            id='TencentCaptcha'
+                            // id={this.state.ID}
                             data-appid="2015130461"
                             data-cbfn="callback"
                             className="login-form-button"
@@ -121,11 +113,11 @@ class Login extends Component {
                         </Button>
 
                         {/* <a href="">现在去注册</a> */}
-                        {/* <Link to="/register">现在去注册</Link> */}
-                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.chenge}>
-                            <Link to="/register">新用户注册</Link>
+                        <Link to="/register">现在去注册</Link>
+                        {/* <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.chenge}>
+                            <Link to="/register">新用户注册</Link> */}
                             {/* <a href='http://localhost:3000/register'>新用户注册</a> */}
-                        </Button>
+                        {/* </Button> */}
 
                     </Form.Item>
                 </Form>
@@ -136,5 +128,5 @@ class Login extends Component {
         );
     }
 }
-const LoginForm = Form.create({ name: 'normal_login' })(observer(Login));
-export default LoginForm;
+const LoginForm = Form.create({ name: 'normal_login' })(observer(_Login));
+export default Login;

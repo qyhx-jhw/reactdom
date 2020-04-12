@@ -19,7 +19,7 @@ class Home extends Component {
         super(props);
         this.state = {
             open: false,
-            userid:'1'
+            userid:''
         };
     }
 
@@ -27,9 +27,9 @@ class Home extends Component {
         //获取动态路由的传值
         // console.log(url.parse(this.props.location.search, true))
         var aid = url.parse(this.props.location.search, true).query;
-        console.log(aid)
+        console.log('homd---ID',aid)
         this.setState({
-            userid:aid.id
+            userid:aid.userid
         })
     }
 
@@ -62,7 +62,7 @@ class Home extends Component {
                             <div className="logo" >
                                 <img src={IMG} height='42px' alt='沙漠骆驼'></img>
                             </div>
-                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']} >
+                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} >
                                 <Menu.Item key="1">
                                    
                                     <Icon type="smile" theme="outlined" />
@@ -74,7 +74,7 @@ class Home extends Component {
                                 <Menu.Item key="2" >
                                     <Icon type="user" />
                                     个人信息
-                                    <Link to={`/home/user?uid=${this.state.userid}`}></Link>
+                                    <Link to={`/home/user?userid=${this.state.userid}`}></Link>
 
                                 </Menu.Item>
 
@@ -123,7 +123,7 @@ class Home extends Component {
                                     {/* <h1>hello world</h1> */}
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route exact path="/home/" component={User}></Route>
+                                    <Route exact path="/home/user" component={User}></Route>
                                     <Route exact path="/home/holiday" component={Holiday}></Route>
                                     <Route exact path="/home/payroll" component={Payroll}></Route>
 

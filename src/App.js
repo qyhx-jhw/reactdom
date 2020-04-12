@@ -25,14 +25,14 @@ class App extends Component {
         <Router>
           <div>
             
-          {/* <header>
+          <header>
               <ul>
                 <li><Link to="/login">登录</Link> </li>
                 <li><Link to="/register">注册</Link></li>
                 <li><Link to="/home">主页</Link></li>
               </ul>
               <hr />
-            </header> */}
+            </header>
 
             <Route path="/login" component={LoginFrom}></Route>
             {/* <Route exact path="/register" component={RegistrationForm}></Route> */}

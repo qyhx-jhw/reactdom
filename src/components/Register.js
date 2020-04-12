@@ -7,6 +7,7 @@ import {
 import Captcha from './Captcha'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import { Link } from 'react-router-dom';
 moment.locale('zh-cn');
 // import locale from 'antd/es/date-picker/locale/zh_CN';
 // window.callback = function(res){
@@ -25,8 +26,6 @@ const { Option } = Select;
 class Register extends Component {
     constructor(props) {
         super(props);
-        // this.state = {};
-
         this.state = {
             confirmDirty: false,
             autoCompleteResult: [],//
@@ -47,7 +46,7 @@ class Register extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-                let url = 'api/register'
+                let url = 'api/user/register'
                 axios.post(
                     url, {
                     name: value.name,
@@ -331,6 +330,8 @@ class Register extends Component {
                         <Button type="primary" htmlType="submit">
                             注册
                     </Button>
+                    <br></br>
+                    <Link to='/login'>已有账号去登陆</Link>
                     </Form.Item>
 
                 </Form>
