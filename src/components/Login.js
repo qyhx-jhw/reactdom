@@ -89,7 +89,6 @@ class _Login extends Component {
                         <Button
                             type="dashed"
                             id='TencentCaptcha'
-                            // id={this.state.ID}
                             data-appid="2015130461"
                             data-cbfn="callback"
                             className="login-form-button"

@@ -84,7 +84,7 @@ class User extends Component {
                     <Descriptions.Item label="常住地：" span={1}>{this.state.Info.residence}</Descriptions.Item>
                 </Descriptions>
                 <br />
-                <Updateuser info={this.state.Info} />
+                <Updateuser info={this.state.Info} userid={this.state.userid} />
                 <br />
                 <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
                     <Descriptions.Item label="入职时间">{this.state.job_info.start}</Descriptions.Item>

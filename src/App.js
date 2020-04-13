@@ -34,9 +34,9 @@ class App extends Component {
               <hr />
             </header>
 
-            <Route path="/login" component={LoginFrom}></Route>
+            <Route exact path="/login" component={LoginFrom}></Route>
             {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
-            <Route path="/register" >
+            <Route exact path="/register" >
               <RegistrationForm/>
             </Route>
 

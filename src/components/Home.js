@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Result } from 'antd';
 // import Check_in from './model/Check_in'
 import User from './model/User'
 import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
 import url from 'url'
 import IMG from '../assets/images/lt.jpg'
-
+import store from 'store'
 import {
     BrowserRouter as Router, Route,
+    Redirect,
     Link
 } from "react-router-dom";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+
+class result extends Component {
+    render() {
+        return (<Result
+            status="success"
+            title="Successfully Purchased Cloud Server ECS!"
+            subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+            extra={[
+            ]}
+        />)
+    }
+}
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             open: false,
-            userid:''
+            userid: ''
         };
     }
 
@@ -27,9 +40,9 @@ class Home extends Component {
         //获取动态路由的传值
         // console.log(url.parse(this.props.location.search, true))
         var aid = url.parse(this.props.location.search, true).query;
-        console.log('homd---ID',aid)
+        console.log('homd---ID', aid)
         this.setState({
-            userid:aid.userid
+            userid: aid.userid
         })
     }
 
@@ -40,6 +53,10 @@ class Home extends Component {
     render() {
         // const { open } = this.state.open
         console.log('用户id', this.state.userid)
+        console.log('token的值', store.get('token'))
+        if (!store.get('token')) {
+            return <Redirect to='/login' />
+        }
 
         return (
             <div>
@@ -49,7 +66,7 @@ class Home extends Component {
                             theme='dark'
                             collapsible='true'
                             width={256}
-                            style={{ minHeight: '100vh'  }}
+                            style={{ minHeight: '100vh' }}
                             breakpoint="sm"
                             collapsedWidth="0"
                             onBreakpoint={broken => {
@@ -64,11 +81,11 @@ class Home extends Component {
                             </div>
                             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} >
                                 <Menu.Item key="1">
-                                   
+
                                     <Icon type="smile" theme="outlined" />
                                     打卡签到
                                     <Link to={`/home/check/${this.state.open}`}></Link>
-                                    
+
                                 </Menu.Item>
 
                                 <Menu.Item key="2" >
@@ -100,7 +117,7 @@ class Home extends Component {
                                     }
                                 >
                                     <Menu.Item key="5">
-                                    <Link to='/home/Tom'>Tom</Link>
+                                        <Link to='/home/Tom'>Tom</Link>
                                     </Menu.Item>
                                     <Menu.Item key="6">Bill</Menu.Item>
                                     <Menu.Item key="7">Alex</Menu.Item>
@@ -114,10 +131,11 @@ class Home extends Component {
                                 background: '#ffff',
                                 textAlign: 'center', padding: 0
                             }} >
-                                
+
                             </Header>
 
                             <Content style={{ margin: '20px 16px 0' }}>
+
                                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 
                                     {/* <h1>hello world</h1> */}
@@ -126,6 +144,7 @@ class Home extends Component {
                                     <Route exact path="/home/user" component={User}></Route>
                                     <Route exact path="/home/holiday" component={Holiday}></Route>
                                     <Route exact path="/home/payroll" component={Payroll}></Route>
+                                    <Route exact path="/home/" component={result}></Route>
 
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>

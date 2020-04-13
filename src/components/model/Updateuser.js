@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
 import moment from 'moment';
 import axios from 'axios' 
+import userServer from '../../service/user'
 const { Option } = Select;
+// class Userinfo extends Component {
+//     render() {
+//         return (
+//             <_Userinfo service={userServer} />
+//         );
+//     }
+// }
 
-class Userinfo extends Component {
+class _Userinfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,29 +60,15 @@ class Userinfo extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-                // let url = 'api/register'
-                // axios.post(
-                //     url, {
-                //     name: value.name,
-                //     email: value.email,
-                //     phone: value.phone,
-                //     gender: value.gender,
-                //     birthday: value.birthday,
-                //     IDcard: value.IDcard,
-                //     residence: value.residence
-                // })
-                    // .then(function (response) {
-                    //     console.log('response', response);
-                    //     if (response.statusText==='OK') {
-                    //         _this.setState({
-                    //             statusText:'OK'
-                    //         })
-                    //     alert('注册成功')
-                    //     }
-                    // })
-                    // .catch(function (error) {
-                    //     console.log(error);
-                    // });
+                let name=value.name
+                let email= value.email
+                let phone= value.phone
+                let gender= value.gender
+                let birthday= value.birthday
+                let IDcard= value.IDcard
+                let residence= value.residence
+                userServer.updateuser(name,email,phone,gender,birthday,IDcard,residence)
+                // this.props.service.updateuser(name,email,phone,gender,birthday,IDcard,residence)
             }
         });
     };
@@ -222,5 +216,5 @@ class Userinfo extends Component {
         );
     }
 }
-const Updateuser = Form.create()(Userinfo);
+const Updateuser = Form.create()(_Userinfo);
 export default Updateuser;

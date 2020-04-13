@@ -7,8 +7,7 @@ class UserService {
         extendObservable(this, {
             id: '',
             succeed: false,
-
-
+            msg:''
         })
     }
 
@@ -34,6 +33,27 @@ class UserService {
                 console.log('-------', error);
             });
 
+    }
+    updateuser(name,email,phone,gender,birthday,IDcard,residence) {
+        let url = 'api/user/update'
+        axios.post(
+            url, {
+            userid:this.id,
+            name: name,
+            email: email,
+            phone: phone,
+            gender: gender,
+            birthday: birthday,
+            IDcard: IDcard,
+            residence: residence
+        })
+            .then(function (response) {
+                console.log('修改的返回值', response);
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 const userServer = new UserService();
