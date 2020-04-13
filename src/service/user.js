@@ -1,4 +1,7 @@
-import { extendObservable, observable } from 'mobx'
+import {
+    extendObservable,
+    // observable
+} from 'mobx'
 import store from 'store'
 import axios from 'axios' //消息处理
 

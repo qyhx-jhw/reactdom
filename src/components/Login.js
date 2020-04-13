@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {
+    Form, Icon, Input, Button,
+    // Checkbox
+} from 'antd';
 import { Link, Redirect } from "react-router-dom";
 // var React = require('react');
-import axios from 'axios' //消息处理
-import { extendObservable } from 'mobx'
+// import axios from 'axios' //消息处理
+// import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
 import userServer from '../service/user'
 import store from 'store'
@@ -13,18 +16,18 @@ var QRCode = require('qrcode.react');//二维码
 
 store.addPlugin(require('store/plugins/expire'));
 
+// class Login extends Component {
+//     render() {
+//         return (
+//             <LoginForm service={userServer} />
+//         );
+//     }
+// }
+
+
+
+
 class Login extends Component {
-    render() {
-        return (
-            <LoginForm service={userServer} />
-        );
-    }
-}
-
-
-
-
-class _Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,17 +38,14 @@ class _Login extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const _this = this
-        // let { history } = this.props
+
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
+    
                 let phone = values.phone
                 let password = values.password
-                this.props.service.login(phone, password)
-                // this.setState({
-                //     userid: this.props.service.id
-                // })
+                userServer.login(phone,password)
+
             }
         });
     };
@@ -54,10 +54,9 @@ class _Login extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
 
-        if (this.props.service.succeed) {
+        if (userServer.succeed) {
             console.log('跳转成功')
-
-            return <Redirect to={`/home?userid=${this.props.service.id}`} />
+            return <Redirect to={`/`} />
         }
         return (
             <div style={{ padding: '15% 35%' }}>
@@ -121,11 +120,11 @@ class _Login extends Component {
                     </Form.Item>
                 </Form>
 
-                {/* <QRCode value="http://192.168.1.2:3000/" />, */}
+                <QRCode value="http://192.168.1.2:3000/" />,
 
             </div>
         );
     }
 }
-const LoginForm = Form.create({ name: 'normal_login' })(observer(_Login));
-export default Login;
+const LoginForm = Form.create({ name: 'normal_login' })(observer(Login));
+export default LoginForm;

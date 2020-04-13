@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import axios from 'axios' //消息处理
 import {
-    Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, DatePicker,
+    Form, Input, Tooltip, Icon,
+    // Cascader, Row,Col, Checkbox, 
+    Select, Button, DatePicker,
 } from 'antd';
-import Captcha from './Captcha'
+// import Captcha from './Captcha'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import { Link } from 'react-router-dom';

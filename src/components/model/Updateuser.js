@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
 import moment from 'moment';
-import axios from 'axios' 
+// import axios from 'axios' 
 import userServer from '../../service/user'
 const { Option } = Select;
 // class Userinfo extends Component {
@@ -52,7 +52,6 @@ class _Userinfo extends Component {
     };
     handleSubmit = e => {
         e.preventDefault();
-        const _this = this
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const value = {
@@ -68,7 +67,7 @@ class _Userinfo extends Component {
                 let IDcard= value.IDcard
                 let residence= value.residence
                 userServer.updateuser(name,email,phone,gender,birthday,IDcard,residence)
-                // this.props.service.updateuser(name,email,phone,gender,birthday,IDcard,residence)
+                
             }
         });
     };

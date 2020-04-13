@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Descriptions } from 'antd';
 import Updateuser from './Updateuser'
-import url from 'url'
+// import url from 'url'
 import axios from 'axios' 
+import userServer from '../../service/user'
 class User extends Component {
     constructor(props) {
         super(props);
-        var aid = url.parse(this.props.location.search, true).query;
         this.state = {
-            userid:aid.userid,
+            userid:userServer.id,
             Info: {//员工信息
                 phone: '',
                 name: '',
@@ -30,24 +30,15 @@ class User extends Component {
         };
     }
     componentDidMount() {
-        //获取动态路由的传值
-        // console.log(url.parse(this.props.location.search, true))
-        // var aid = url.parse(this.props.location.search, true).query;
-        // // console.log('88888',aid.uid)
-        // this.setState({
-        //     userid:aid.userid
-        // })
         let surl = '/api/user/info'
         const _this =this
         axios.get(surl, {
             params: {
-            //   ID: this.state.uid
                 id:this.state.userid
             }
           })
           .then(function (response) {
               console.log('get成功', response.data);
-            //   info=response.data
               _this.setState({
                 Info:{//员工信息
                     phone: response.data.phone,
@@ -71,7 +62,6 @@ class User extends Component {
     }
     render() {
         console.log('个人信息的id',this.state.userid)
-        // console.log('999',this.state.Info.phone)
         return (
             <div>
                 <Descriptions title="员工信息" layout="horizontal" bordered="true" size='small'>
