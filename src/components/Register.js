@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import axios from 'axios' //消息处理
+// import axios from 'axios' //消息处理
 import {
     Form, Input, Tooltip, Icon,
     // Cascader, Row,Col, Checkbox, 
@@ -8,6 +8,8 @@ import {
 } from 'antd';
 // import Captcha from './Captcha'
 import moment from 'moment';
+import userServer from '../service/user'
+
 import 'moment/locale/zh-cn';
 import { Link } from 'react-router-dom';
 moment.locale('zh-cn');
@@ -40,7 +42,6 @@ class Register extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const _this = this
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const value = {
@@ -48,30 +49,15 @@ class Register extends Component {
                     'birthday': values['birthday'].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-                let url = 'api/user/register'
-                axios.post(
-                    url, {
-                    name: value.name,
-                    email: value.email,
-                    phone: value.phone,
-                    password: value.password,
-                    gender: value.gender,
-                    birthday: value.birthday,
-                    IDcard: value.IDcard,
-                    residence: value.residence
-                })
-                    .then(function (response) {
-                        console.log('response', response);
-                        if (response.statusText==='OK') {
-                            _this.setState({
-                                statusText:'OK'
-                            })
-                        alert('注册成功')
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                let name = value.name
+                let email = value.email
+                let phone = value.phone
+                let password = value.password
+                let gender = value.gender
+                let birthday = value.birthday
+                let IDcard = value.IDcard
+                let residence = value.residence
+                userServer.register(name,email,phone,password,gender,birthday,IDcard,residence)
             }
         });
         

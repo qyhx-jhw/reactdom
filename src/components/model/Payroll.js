@@ -74,46 +74,22 @@ class Payroll extends Component {
           time: '2020-07-17',
           pay: 8700,
           description: 'hello',
-        },
-        {
-          key: 8,
-          department: '研发部',
-          name: '蒋浩文',
-          time: '2020-08-17',
-          pay: 7900,
-          description: 'hello',
-        },
-        {
-          key: 9,
-          department: '研发部',
-          name: '蒋浩文',
-          time: '2020-09-17',
-          pay: 7400,
-          description: 'hello',
-        },
-        {
-          key: 10,
-          department: '研发部',
-          name: '蒋浩文',
-          time: '2020-10-17',
-          pay: 7650,
-          description: 'hello',
-        },
+        }
 
       ]
     };
     this.columns = [
-      { title: '部门', dataIndex: 'department', key: 'department' },
+      // { title: '部门', dataIndex: 'department', key: 'department' },
       { title: '姓名', dataIndex: 'name', key: 'name' },
       { title: '时间', dataIndex: 'time', key: 'time' },
       { title: '实际工资', dataIndex: 'pay', key: 'pay' },
-      {
-        title: '详情',
-        dataIndex: '',
-        key: 'x',
-        // render: () => <a>Delete</a>,
-        // render: () => <a>Delete</a>,
-      },
+      // {
+      //   title: '详情',
+      //   dataIndex: '',
+      //   key: 'x',
+      //   // render: () => <a>Delete</a>,
+      //   // render: () => <a>Delete</a>,
+      // },
     ];
   }
   render() {

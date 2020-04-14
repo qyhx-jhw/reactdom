@@ -72,6 +72,7 @@ class _Userinfo extends Component {
         });
     };
     render() {
+        
         const { getFieldDecorator } = this.props.form;
         const config = {
             rules: [{ type: 'object', required: true, message: '请选择时间!' }],
@@ -143,8 +144,8 @@ class _Userinfo extends Component {
                                         initialValue: this.state.data.gender
                                     })(
                                         <Select placeholder="选择性别">
-                                            <Option value="man">男</Option>
-                                            <Option value="woman">女</Option>
+                                            <Option value="男">男</Option>
+                                            <Option value="女">女</Option>
                                         </Select>,
                                     )}
                                 </Form.Item>

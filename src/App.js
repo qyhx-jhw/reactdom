@@ -13,7 +13,6 @@ import RegistrationForm from './components/Register'
 import Home from './components/Home'
 
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +23,8 @@ class App extends Component {
       <ConfigProvider locale={zhCN}>
         <Router>
           <div>
-            
-          <header>
+
+            <header>
               <ul>
                 <li><Link to="/login">登录</Link> </li>
                 <li><Link to="/register">注册</Link></li>
@@ -34,13 +33,12 @@ class App extends Component {
               <hr />
             </header>
 
-            <Route exact path="/login" component={LoginFrom}></Route>
+            {/* <Route exact path="/login" component={LoginFrom}></Route> */}
             {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
-            <Route exact path="/register" >
-              <RegistrationForm/>
-            </Route>
-
-            <Route exact path="/" component={Home}></Route>
+            {/* <Route exact path="/register" ><RegistrationForm /></Route> */}
+              
+            
+            <Route  path="/" component={Home}></Route>
             {/* <Route exact path="/home" component={Home}></Route> */}
 
           </div>

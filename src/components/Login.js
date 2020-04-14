@@ -45,7 +45,7 @@ class Login extends Component {
                 let phone = values.phone
                 let password = values.password
                 userServer.login(phone,password)
-
+                
             }
         });
     };
@@ -56,7 +56,7 @@ class Login extends Component {
 
         if (userServer.succeed) {
             console.log('跳转成功')
-            return <Redirect to={`/`} />
+            return <Redirect to='/'/>
         }
         return (
             <div style={{ padding: '15% 35%' }}>

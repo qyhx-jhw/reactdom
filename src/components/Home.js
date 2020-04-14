@@ -4,9 +4,9 @@ import { Layout, Menu, Icon, Result } from 'antd';
 import User from './model/User'
 import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
-// import url from 'url'
+import Alluser from './model/Alluser'
 import IMG from '../assets/images/lt.jpg'
-// import store from 'store'
+import store from 'store'
 import userServer from '../service/user'
 import {
     BrowserRouter as Router, Route,
@@ -37,15 +37,22 @@ class Home extends Component {
         };
     }
 
+    componentDidMount() {
+        userServer.getinfo()
+    }
+
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
     }
     render() {
         // const { open } = this.state.open
-        if (!userServer.succeed) {
-            return <Redirect to='/login' />
-        }
+        // if (!userServer.succeed) {
+        //     return <Redirect to='/login' />
+        // }
+        if (!store.get('token')) {
+                return <Redirect to='/login' />
+            }
 
         return (
             <div>
@@ -80,7 +87,7 @@ class Home extends Component {
                                 <Menu.Item key="2" >
                                     <Icon type="user" />
                                     个人信息
-                                    <Link to={`/user`}></Link>
+                                    <Link to='/user'></Link>
 
                                 </Menu.Item>
 
@@ -106,7 +113,7 @@ class Home extends Component {
                                     }
                                 >
                                     <Menu.Item key="5">
-                                        <Link to='/Tom'>Tom</Link>
+                                        <Link to='/alluser'>所有员工信息</Link>
                                     </Menu.Item>
                                     <Menu.Item key="6">Bill</Menu.Item>
                                     <Menu.Item key="7">Alex</Menu.Item>
@@ -133,8 +140,9 @@ class Home extends Component {
                                     <Route exact path="/user" component={User}></Route>
                                     <Route exact path="/holiday" component={Holiday}></Route>
                                     <Route exact path="/payroll" component={Payroll}></Route>
-                                    <Route exact path="/" component={result}></Route>
+                                    <Route exact path="/alluser" component={Alluser}></Route>
 
+                                    {/* <Route exact path="/" component={result}></Route> */}
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>
