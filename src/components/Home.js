@@ -7,6 +7,8 @@ import Holiday from './model/Holiday'
 import Alluser from './model/Alluser'
 import IMG from '../assets/images/lt.jpg'
 import store from 'store'
+import { observer } from 'mobx-react'
+
 import userServer from '../service/user'
 import {
     BrowserRouter as Router, Route,
@@ -33,17 +35,37 @@ class Home extends Component {
         super(props);
         this.state = {
             open: false,
-            userid: userServer.id
+            userid: userServer.id,
+            a:1
         };
     }
 
-    componentDidMount() {
-        userServer.getinfo()
-    }
+    // componentWillMount() {
+    //     userServer.getinfo(this.state.userid)
+    // }
 
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
+    }
+    returnm = () => {
+        if (this.state.a) {
+            return <SubMenu
+            key="sub1"
+            title={
+                <span>
+                    <Icon type="database" />
+                    <span>管理信息</span>
+                </span>
+            }
+        >
+            <Menu.Item key="5">
+                <Link to='/alluser'>所有员工信息</Link>
+            </Menu.Item>
+            <Menu.Item key="6">工资处理</Menu.Item>
+            <Menu.Item key="7">请假审核</Menu.Item>
+        </SubMenu> 
+        }
     }
     render() {
         // const { open } = this.state.open
@@ -102,11 +124,10 @@ class Home extends Component {
                                     请假申请
                                     <Link to="/holiday"></Link>
                                 </Menu.Item>
-                                <SubMenu
+                                    {/* <SubMenu
                                     key="sub1"
                                     title={
                                         <span>
-                                            {/* <Icon type="user" /> */}
                                             <Icon type="database" />
                                             <span>管理信息</span>
                                         </span>
@@ -117,7 +138,9 @@ class Home extends Component {
                                     </Menu.Item>
                                     <Menu.Item key="6">Bill</Menu.Item>
                                     <Menu.Item key="7">Alex</Menu.Item>
-                                </SubMenu>
+                                </SubMenu> */}
+                                {this.returnm()}
+                                
                             </Menu>
 
                         </Sider>
@@ -134,13 +157,13 @@ class Home extends Component {
 
                                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 
-                                    
+                                {/* {this.returnm()} */}
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route exact path="/user" component={User}></Route>
-                                    <Route exact path="/holiday" component={Holiday}></Route>
-                                    <Route exact path="/payroll" component={Payroll}></Route>
-                                    <Route exact path="/alluser" component={Alluser}></Route>
+                                    <Route  path="/user" component={User}></Route>
+                                    <Route  path="/holiday" component={Holiday}></Route>
+                                    <Route  path="/payroll" component={Payroll}></Route>
+                                    <Route  path="/alluser" component={Alluser}></Route>
 
                                     {/* <Route exact path="/" component={result}></Route> */}
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
@@ -156,4 +179,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default observer(Home);

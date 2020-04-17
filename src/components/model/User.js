@@ -6,6 +6,8 @@ import Updateuser from './Updateuser'
 import userServer from '../../service/user'
 import { observer } from 'mobx-react'
 import { Link, Redirect } from "react-router-dom";
+// const info=userServer.getinfo(userServer.id)
+// const info = userServer.info
 class User extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +16,7 @@ class User extends Component {
             update: userServer.update,
             userid: userServer.id,
             Info: userServer.info,
+            Info:'',
             job_info: {//职位信息
                 start: '2019-6-1',
                 end: '',
@@ -24,28 +27,25 @@ class User extends Component {
             }
 
         };
-
+        this.setState({
+            Info: userServer.info
+        })
     }
-    // componentDidMount() {
-    //     // userServer.getinfo()
-    //     this.setState({
-    //         Info: userServer.info
-    //     })
+    // componentDidUpdate() {
+    //      userServer.getinfo(this.state.userid)
+        
     // }
+    componentWillMount() {
+        this.setState({
+            Info: userServer.info
+        })
+    }
+
 
     render() {
         // console.log('个人信息的id', this.state.userid)
         // console.log('个人', this.state.Info)
-        // console.log(userServer.update)
-        // console.log(this.state.update)
-        if (userServer.update !== this.state.update) {
-            console.log(userServer.update)
-            this.setState({
-                update: userServer.update,
-                Info: userServer.info
-            })
-            console.log('bbb',this.state.update)
-        }
+
         return (
             <div>
                 <Descriptions title="员工信息" layout="horizontal" bordered="true" size='small'>
@@ -60,19 +60,19 @@ class User extends Component {
                 <br />
                 <Updateuser info={this.state.Info} userid={this.state.userid} />
                 <br />
-                {/* <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
+                <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
                     <Descriptions.Item label="入职时间">{this.state.job_info.start}</Descriptions.Item>
                     <Descriptions.Item label="离职时间" span={2}>{this.state.job_info.end}</Descriptions.Item>
-                    <Descriptions.Item label="基础工资" span={1}>￥{this.state.job_info.pay}</Descriptions.Item>
+                    {/* <Descriptions.Item label="基础工资" span={1}>￥{this.state.job_info.pay}</Descriptions.Item> */}
                     <Descriptions.Item label="所在部门">{this.state.job_info.department}</Descriptions.Item>
                     <Descriptions.Item label="所在岗位" span={2}>{this.state.job_info.position}</Descriptions.Item>
-                    <Descriptions.Item label="个人介绍" span={1}>{this.state.job_info.Introduction}
+                    <Descriptions.Item label="在职情况" span={1}>{this.state.job_info.Introduction}
                     </Descriptions.Item>
-                </Descriptions> */}
+                </Descriptions>
 
             </div>
         );
     }
 }
-// export default observer(User);
-export default User;
+export default observer(User);
+// export default User;
