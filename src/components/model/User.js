@@ -18,12 +18,12 @@ class User extends Component {
             Info: userServer.info,
             Info:'',
             job_info: {//职位信息
-                start: '2019-6-1',
+                start: '2019-09-01',
                 end: '',
                 pay: '8000',
                 department: '研发部',
-                position: 'Python开发实习生',
-                Introduction: '天天开心'
+                position: '网络维护',
+                Introduction: '在职'
             }
 
         };
