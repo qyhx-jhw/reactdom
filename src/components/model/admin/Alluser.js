@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
 import axios from 'axios'
-import userServer from '../../service/user'
+import userServer from '../../../service/user'
 const columns = [
     {
         title: '序号',

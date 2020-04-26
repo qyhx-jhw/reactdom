@@ -2,16 +2,22 @@
 import React, { Component } from 'react';
 // import axios from 'axios' //消息处理
 import {
-    Form, Input, Tooltip, Icon,
+    Form, Input, Tooltip, Icon, Result,
     // Cascader, Row,Col, Checkbox, 
     Select, Button, DatePicker,
 } from 'antd';
 // import Captcha from './Captcha'
 import moment from 'moment';
+import { observer } from 'mobx-react'
 import userServer from '../service/user'
-
 import 'moment/locale/zh-cn';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import {
+    BrowserRouter as Router, Route,
+    Redirect,
+    Link
+} from "react-router-dom";
+// import {  Button } from 'antd';
 moment.locale('zh-cn');
 // import locale from 'antd/es/date-picker/locale/zh_CN';
 // window.callback = function(res){
@@ -27,6 +33,28 @@ const { Option } = Select;
 // const AutoCompleteOption = AutoComplete.Option;
 
 
+class Result1 extends Component {
+    updata = () => {
+        userServer.reg=false
+    }
+    render() {
+        return (
+            <Result
+                status="success"
+                title="信息注册成功"
+                subTitle={`"注册时间：" ${moment().format('MMMM Do , h:mm:ss a')}`}
+                extra={[
+                    <Button type="primary" key="console">
+                        <Link to='/login'>去登陆</Link>
+                    </Button>,
+                    <Button  type="primary" key="buy" onClick={this.updata}>
+                         <Link to='/register'>重新注册</Link>
+                    </Button>,
+                ]}
+            />)
+    }
+}
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +63,7 @@ class Register extends Component {
             autoCompleteResult: [],//
             msg: '我承诺不会乱用注册信息',
             ID: 'TencentCaptcha',
-            statusText:''
+            statusText: ''
         };
     }
 
@@ -57,10 +85,10 @@ class Register extends Component {
                 let birthday = value.birthday
                 let IDcard = value.IDcard
                 let residence = value.residence
-                userServer.register(name,email,phone,password,gender,birthday,IDcard,residence)
+                userServer.register(name, email, phone, password, gender, birthday, IDcard, residence)
             }
         });
-        
+
     };
 
     handleConfirmBlur = e => {
@@ -105,6 +133,9 @@ class Register extends Component {
     //     this.setState({ autoCompleteResult });
     // };
     render() {
+        if (userServer.reg) {
+            return <Result1 />
+        }
         const { getFieldDecorator } = this.props.form;
         // const { autoCompleteResult } = this.state;
 
@@ -141,12 +172,14 @@ class Register extends Component {
         const config = {
             rules: [{ type: 'object', required: true, message: '请选择时间!' }],
         };
-        console.log('是否：：：',this.state.statusText)
+        console.log('是否：：：', this.state.statusText)
         // const websiteOptions = autoCompleteResult.map(website => (
         //     <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
         // ));
         return (
             <div style={{ padding: '10% 30%' }}>
+                {/* <Route exact path="/result" component={result}></Route> */}
+
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form">
                     <Form.Item label="电话号码" hasFeedback>
                         {getFieldDecorator('phone', {
@@ -279,54 +312,20 @@ class Register extends Component {
                             ],
                         })(<Input />)}
                     </Form.Item>
-                    {/* <Form.Item label="Website">
-                    {getFieldDecorator('website', {
-                        rules: [{ required: true, message: 'Please input website!' }],
-                    })(
-                        <AutoComplete
-                            dataSource={websiteOptions}
-                            onChange={this.handleWebsiteChange}
-                            placeholder="website"
-                        >
-                            <Input />
-                        </AutoComplete>,
-                    )}
-                </Form.Item> */}
-                    {/* <Form.Item label="Captcha/验证码" extra="我们必须确保您正常注册.">
-                        <Row gutter={8}>
-                            <Col span={12}>
 
-                                <Captcha id={this.state.ID} key='1'></Captcha>
-
-                            </Col>
-                        </Row>
-                    </Form.Item> */}
-                    {/* <Form.Item {...tailFormItemLayout}>
-                        {getFieldDecorator('agreement', {
-                            valuePropName: 'checked',
-                        })(
-                            <Checkbox>
-                                我已同意
-                            <Tooltip title={this.state.msg}>
-                                    
-                                    <a href='111'>协议</a>
-                                </Tooltip>
-                            </Checkbox>,
-                        )}
-                    </Form.Item> */}
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
                             注册
                     </Button>
-                    <br></br>
-                    <Link to='/login'>已有账号去登陆</Link>
+                        <br></br>
+                        <Link to='/login'>已有账号去登陆</Link>
                     </Form.Item>
-
+                    {/* <Result1/> */}
                 </Form>
             </div>
         );
     }
 }
-const RegistrationForm = Form.create({ name: 'register' })(Register);
+const RegistrationForm = Form.create({ name: 'register' })(observer(Register));
 
 export default RegistrationForm;

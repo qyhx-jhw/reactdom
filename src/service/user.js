@@ -12,6 +12,7 @@ class UserService {
             data: [],
             info: '',//信息
             succeed: false, //登录是否成功
+            reg:true,
 
         })
 
@@ -55,12 +56,13 @@ class UserService {
             IDcard: IDcard,
             residence: residence
         })
-            .then(function (response) {
+            .then((response)=> {
                 console.log('response', response);
+                this.reg = true;
                 alert('注册成功')
 
             })
-            .catch(function (error) {
+            .catch((error)=> {
                 console.log(error);
             });
     }
@@ -74,7 +76,7 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('get用户信息成功', response.data);
+                console.log('get用户注册信息成功', response.data);
                 // response.data
                 this.info = {//员工信息
                     phone: response.data.phone,

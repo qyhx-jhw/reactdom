@@ -4,11 +4,12 @@ import { Layout, Menu, Icon, Result } from 'antd';
 import User from './model/User'
 import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
-import Alluser from './model/Alluser'
+import Alluser from './model/admin/Alluser'
+import Inputpay from './model/admin/Inputpay'
 import IMG from '../assets/images/lt.jpg'
 import store from 'store'
 import { observer } from 'mobx-react'
-
+import moment from 'moment';
 import userServer from '../service/user'
 import {
     BrowserRouter as Router, Route,
@@ -22,8 +23,8 @@ class result extends Component {
     render() {
         return (<Result
             status="success"
-            title="Successfully Purchased Cloud Server ECS!"
-            subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+            title="成功登录人事管理系统"
+            subTitle={`"登录时间：" ${moment().format('MMMM Do , h:mm:ss a')}`}
             extra={[
             ]}
         />)
@@ -59,10 +60,8 @@ class Home extends Component {
                 </span>
             }
         >
-            <Menu.Item key="5">
-                <Link to='/alluser'>所有员工信息</Link>
-            </Menu.Item>
-            <Menu.Item key="6">工资处理</Menu.Item>
+            <Menu.Item key="5"><Link to='/alluser'>所有员工信息</Link></Menu.Item>
+            <Menu.Item key="6"><Link to='/inputpay'>工资处理</Link> </Menu.Item>
             <Menu.Item key="7">请假审核</Menu.Item>
         </SubMenu> 
         }
@@ -72,6 +71,7 @@ class Home extends Component {
         // if (!userServer.succeed) {
         //     return <Redirect to='/login' />
         // }
+        console.log('时间：', (new Date()).getDay(),moment().format('MMMM Do , h:mm:ss a'))
         if (!store.get('token')) {
                 return <Redirect to='/login' />
             }
@@ -164,8 +164,8 @@ class Home extends Component {
                                     <Route  path="/holiday" component={Holiday}></Route>
                                     <Route  path="/payroll" component={Payroll}></Route>
                                     <Route  path="/alluser" component={Alluser}></Route>
-
-                                    {/* <Route exact path="/" component={result}></Route> */}
+                                    <Route  path="/inputpay" component={Inputpay}></Route>
+                                    <Route exact path="/" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

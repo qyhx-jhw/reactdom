@@ -33,12 +33,12 @@ class App extends Component {
               <hr />
             </header>
 
-            <Route exact path="/login" component={LoginFrom}></Route>
+            <Route  path="/login" component={LoginFrom}></Route>
             {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
-            <Route exact path="/register" ><RegistrationForm /></Route>
+            <Route  path="/register" ><RegistrationForm /></Route>
               
             
-            <Route  path="/" component={Home}></Route>
+            <Route exact path="/" component={Home}></Route>
             {/* <Route exact path="/home" component={Home}></Route> */}
 
           </div>
