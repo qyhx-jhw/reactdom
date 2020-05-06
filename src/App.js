@@ -26,19 +26,20 @@ class App extends Component {
 
             <header>
               <ul>
-                <li><Link to="/login">登录</Link> </li>
+                {/* <li><Link to="/login">登录</Link> </li> */}
+                <li><Link to="/">登录</Link> </li>
                 <li><Link to="/register">注册</Link></li>
-                <li><Link to="/">主页</Link></li>
+                <li><Link to="/home">主页</Link></li>
               </ul>
               <hr />
             </header>
 
-            <Route  path="/login" component={LoginFrom}></Route>
+            <Route exact path="/" component={LoginFrom}></Route>
             {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
-            <Route  path="/register" ><RegistrationForm /></Route>
+            <Route exact path="/register" ><RegistrationForm /></Route>
               
             
-            <Route exact path="/" component={Home}></Route>
+            <Route exact path="/home" component={Home}></Route>
             {/* <Route exact path="/home" component={Home}></Route> */}
 
           </div>

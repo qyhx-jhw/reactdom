@@ -12,13 +12,12 @@ class UserService {
             data: [],
             info: '',//信息
             succeed: false, //登录是否成功
-            reg:true,
+            reg: true,
 
         })
 
     }
-
-
+    //登录
     login(phone, password) {
         console.log('userserver', phone, password)
 
@@ -43,6 +42,7 @@ class UserService {
             });
 
     }
+    //注册
     register(name, email, phone, password, gender, birthday, IDcard, residence) {
         let url = 'api/user/register'
         axios.post(
@@ -56,17 +56,17 @@ class UserService {
             IDcard: IDcard,
             residence: residence
         })
-            .then((response)=> {
+            .then((response) => {
                 console.log('response', response);
                 this.reg = true;
                 alert('注册成功')
 
             })
-            .catch((error)=> {
+            .catch((error) => {
                 console.log(error);
             });
     }
-
+    //获取个人用户信息
     getinfo() {
         // let info={}
         let surl = '/api/user/info'
@@ -76,16 +76,27 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('get用户注册信息成功', response.data);
+                console.log('get用户个人信息成功', response.data);
+                var end_time1 = response.data.end_time
+                if (response.data.end_time === 'null') {
+                    end_time1 = '空'
+                }
+
                 // response.data
                 this.info = {//员工信息
-                    phone: response.data.phone,
-                    name: response.data.name,
-                    gender: response.data.gender,
-                    birthday: response.data.birthday,
-                    IDcard: response.data.IDcard,
-                    residence: response.data.residence,
-                    email: response.data.email,
+                    phone: response.data.phone,//手机号码
+                    name: response.data.name, //姓名
+                    gender: response.data.gender,//性别
+                    birthday: response.data.birthday,//出生日期
+                    IDcard: response.data.IDcard,//身份证
+                    residence: response.data.residence,//常住地址
+                    email: response.data.email,//邮箱
+
+                    start_time: response.data.start_time,//入职时间
+                    end_time: end_time1,//离职时间
+                    department: response.data.department,//部门
+                    position: response.data.position,//岗位
+                    situation: response.data.situation//在职情况
                 };
 
             })
@@ -94,7 +105,7 @@ class UserService {
             })
         // return info
     }
-
+    //更新个人用户信息
     updateuser(name, email, phone, gender, birthday, IDcard, residence) {
         let url = 'api/user/update'
         axios.post(
@@ -118,7 +129,7 @@ class UserService {
                 console.log(error);
             });
     }
-
+    //过去所有用户信息
     getalluser() {
         let data = []
         let surl = '/api/user/alluser'
@@ -142,7 +153,7 @@ class UserService {
                         residence: response.data[i].residence,
                     });
                 }
-                console.log('get成功222', data);
+                // console.log('get成功222', data);
 
             })
             .catch(error => {
@@ -150,7 +161,7 @@ class UserService {
             })
         return data
     }
-
+    //获取工资信息
     getpay() {
         // let data = []
         // let name=this.name
@@ -182,6 +193,31 @@ class UserService {
             })
         console.log('ID和name', this.data);
         // return data
+    }
+    //入职信息
+    getjob(id, name, start_time, end_time, department, position, situation) {
+        let url = 'api/user/job'
+        axios.post(
+            url,
+            {
+                userid: id,
+                name: name,
+                start_time: start_time,
+                end_time: end_time,
+                department: department,
+                position: position,
+                situation: situation
+            }
+        )
+            .then((response) => {
+                console.log('入职信息', response, response.statusText);
+                // this.getinfo()
+                alert('入职成功')
+                // this.update = (new Date()).getTime()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }
 const userServer = new UserService();

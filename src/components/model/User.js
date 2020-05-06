@@ -5,7 +5,7 @@ import Updateuser from './Updateuser'
 // import axios from 'axios' 
 import userServer from '../../service/user'
 import { observer } from 'mobx-react'
-import { Link, Redirect } from "react-router-dom";
+// import { Link, Redirect } from "react-router-dom";
 // const info=userServer.getinfo(userServer.id)
 // const info = userServer.info
 class User extends Component {
@@ -16,15 +16,15 @@ class User extends Component {
             update: userServer.update,
             userid: userServer.id,
             Info: userServer.info,
-            Info:'',
-            job_info: {//职位信息
-                start: '2019-09-01',
-                end: '',
-                pay: '8000',
-                department: '研发部',
-                position: '网络维护',
-                Introduction: '在职'
-            }
+            // Info: '',
+            // job_info: {//职位信息
+            //     start: '2019-09-01',
+            //     end: '',
+            //     pay: '8000',
+            //     department: '研发部',
+            //     position: '网络维护',
+            //     Introduction: '在职'
+            // }
 
         };
         this.setState({
@@ -61,15 +61,13 @@ class User extends Component {
                 <Updateuser info={this.state.Info} userid={this.state.userid} />
                 <br />
                 <Descriptions title="职位情况" layout="vertical" bordered="true" size='small'>
-                    <Descriptions.Item label="入职时间">{this.state.job_info.start}</Descriptions.Item>
-                    <Descriptions.Item label="离职时间" span={2}>{this.state.job_info.end}</Descriptions.Item>
-                    {/* <Descriptions.Item label="基础工资" span={1}>￥{this.state.job_info.pay}</Descriptions.Item> */}
-                    <Descriptions.Item label="所在部门">{this.state.job_info.department}</Descriptions.Item>
-                    <Descriptions.Item label="所在岗位" span={2}>{this.state.job_info.position}</Descriptions.Item>
-                    <Descriptions.Item label="在职情况" span={1}>{this.state.job_info.Introduction}
+                    <Descriptions.Item label="入职时间">{this.state.Info.start_time}</Descriptions.Item>
+                    <Descriptions.Item label="离职时间" span={2}>{this.state.Info.end_time}</Descriptions.Item>
+                    <Descriptions.Item label="所在部门">{this.state.Info.department}</Descriptions.Item>
+                    <Descriptions.Item label="所在岗位" span={2}>{this.state.Info.position}</Descriptions.Item>
+                    <Descriptions.Item label="在职情况" span={1}>{this.state.Info.situation}
                     </Descriptions.Item>
                 </Descriptions>
-
             </div>
         );
     }

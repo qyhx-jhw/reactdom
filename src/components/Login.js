@@ -10,7 +10,7 @@ import { Link, Redirect } from "react-router-dom";
 import { observer } from 'mobx-react'
 import userServer from '../service/user'
 import store from 'store'
-// import Captcha from './Captcha'
+import Captcha from './Captcha'
 
 var QRCode = require('qrcode.react');//二维码
 
@@ -56,7 +56,7 @@ class Login extends Component {
 
         if (userServer.succeed) {
             console.log('跳转成功')
-            return <Redirect to='/'/>
+            return <Redirect to='/home'/>
         }
         return (
             <div style={{ padding: '15% 35%' }}>
@@ -81,9 +81,7 @@ class Login extends Component {
                                 placeholder="密码"
                             />,
                         )}
-
                     </Form.Item>
-
                     <Form.Item>
                         <Button
                             type="dashed"
@@ -92,31 +90,10 @@ class Login extends Component {
                             data-cbfn="callback"
                             className="login-form-button"
                         >获取验证码</Button>
-                        {/* <Captcha id={this.state.ID} key='2'></Captcha> */}
-
                     </Form.Item>
-
-
                     <Form.Item>
-                        {/* {getFieldDecorator('remember', {
-                            valuePropName: 'checked',
-                            initialValue: true,
-                        })(<Checkbox>记住账号</Checkbox>)}
-                        <a className="login-form-forgot" href="1">
-                            忘记密码
-                        </a> */}
-
-                        <Button type="primary" htmlType="submit" className="login-form-button">
-                            登录
-                        </Button>
-
-                        {/* <a href="">现在去注册</a> */}
+                        <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
                         <Link to="/register">现在去注册</Link>
-                        {/* <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.chenge}>
-                            <Link to="/register">新用户注册</Link> */}
-                            {/* <a href='http://localhost:3000/register'>新用户注册</a> */}
-                        {/* </Button> */}
-
                     </Form.Item>
                 </Form>
 

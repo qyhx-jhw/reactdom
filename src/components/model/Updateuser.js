@@ -136,8 +136,7 @@ class _Userinfo extends Component {
                                     })(<Input placeholder='邮箱地址'/>)}
                                 </Form.Item>
                             </Col>
-                            <Col span={12}>
-                               
+                            <Col span={12}>                               
                                 <Form.Item label="性别" hasFeedback>
                                     {getFieldDecorator('gender', {
                                         rules: [{ required: true, message: '请选择您的性别!' }],

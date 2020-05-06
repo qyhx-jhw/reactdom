@@ -13,8 +13,9 @@ import userServer from '../service/user'
 import 'moment/locale/zh-cn';
 // import { Link } from 'react-router-dom';
 import {
-    BrowserRouter as Router, Route,
-    Redirect,
+    // BrowserRouter as Router,
+    // Route,
+    // Redirect,
     Link
 } from "react-router-dom";
 // import {  Button } from 'antd';
@@ -123,15 +124,6 @@ class Register extends Component {
         callback();
     };
 
-    // handleWebsiteChange = value => {
-    //     let autoCompleteResult;
-    //     if (!value) {
-    //         autoCompleteResult = [];
-    //     } else {
-    //         autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    //     }
-    //     this.setState({ autoCompleteResult });
-    // };
     render() {
         if (userServer.reg) {
             return <Result1 />
@@ -161,25 +153,13 @@ class Register extends Component {
                 },
             },
         };
-        // const prefixSelector = getFieldDecorator('prefix', {
-        //     initialValue: '86',
-        // })(
-        //     <Select style={{ width: 70 }}>
-        //         <Option value="86">+86</Option>
-        //         <Option value="87">+87</Option>
-        //     </Select>,
-        // );
+
         const config = {
             rules: [{ type: 'object', required: true, message: '请选择时间!' }],
         };
         console.log('是否：：：', this.state.statusText)
-        // const websiteOptions = autoCompleteResult.map(website => (
-        //     <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        // ));
         return (
             <div style={{ padding: '10% 30%' }}>
-                {/* <Route exact path="/result" component={result}></Route> */}
-
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form">
                     <Form.Item label="电话号码" hasFeedback>
                         {getFieldDecorator('phone', {
@@ -193,8 +173,6 @@ class Register extends Component {
                             ],
                         })(<Input style={{ width: '100%' }} maxLength={11} />)}
                     </Form.Item>
-
-
                     <Form.Item label="Password/密码" hasFeedback>
                         {getFieldDecorator('password', {
                             rules: [
@@ -220,19 +198,7 @@ class Register extends Component {
                                 },
                             ],
                         })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-
                     </Form.Item>
-
-
-
-
-                    {/* <Form.Item label="DatePicker[showTime]">
-                    {getFieldDecorator('date-time-picker', config)(
-                        <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />,
-                    )}
-                </Form.Item> */}
-
-                    {/* 姓名 */}
                     <Form.Item
                         label={
                             <span>
@@ -278,16 +244,6 @@ class Register extends Component {
                             ],
                         })(<Input placeholder='末尾X需要大写' maxLength={18} />)}
                     </Form.Item>
-
-                    {/* <Form.Item label="常住地址">
-                        {getFieldDecorator('residence', {
-                            initialValue: ['宁夏', '中卫', '沙坡头'],
-                            rules: [
-                                { type: 'array', required: true, message: '请选择您的惯常住所!' },
-                            ],
-                        })(<Cascader options={residences} />)}
-                    </Form.Item> */}
-
                     <Form.Item label="常住地址" hasFeedback>
                         {getFieldDecorator('residence', {
                             rules: [{
@@ -296,8 +252,6 @@ class Register extends Component {
                             }],
                         })(<Input style={{ width: '100%' }} />)}
                     </Form.Item>
-
-
                     <Form.Item label="E-mail/邮箱">
                         {getFieldDecorator('email', {
                             rules: [
@@ -312,7 +266,6 @@ class Register extends Component {
                             ],
                         })(<Input />)}
                     </Form.Item>
-
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
                             注册
@@ -320,7 +273,6 @@ class Register extends Component {
                         <br></br>
                         <Link to='/login'>已有账号去登陆</Link>
                     </Form.Item>
-                    {/* <Result1/> */}
                 </Form>
             </div>
         );

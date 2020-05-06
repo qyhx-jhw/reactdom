@@ -40,8 +40,8 @@ class Inputpay extends Component {
             },
             {
                 title: '基础工资',
-                dataIndex: 'x',
-                key: 'x',
+                dataIndex: 'x1',
+                key: 'x1',
                 render: () => <InputNumber
                     defaultValue={5000}
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -51,8 +51,8 @@ class Inputpay extends Component {
             },
             {
                 title: '补助工资',
-                dataIndex: 'x',
-                key: 'x',
+                dataIndex: 'x2',
+                key: 'x2',
                 render: () => <InputNumber
                     defaultValue={500}
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -62,8 +62,8 @@ class Inputpay extends Component {
             },
             {
                 title: '扣除部分',
-                dataIndex: 'x',
-                key: 'x',
+                dataIndex: 'x3',
+                key: 'x3',
                 render: () => <InputNumber
                     defaultValue={200}
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -73,8 +73,8 @@ class Inputpay extends Component {
             },
             {
                 title: '实际工资',
-                dataIndex: 'x',
-                key: 'x',
+                dataIndex: 'x4',
+                key: 'x4',
                 render: () => <InputNumber
                     defaultValue={5000}
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -84,8 +84,8 @@ class Inputpay extends Component {
             },
             {
                 title: '提交',
-                dataIndex: 'x',
-                key: 'x',
+                dataIndex: 'x5',
+                key: 'x5',
                 render: () => <Button icon="to-top" type="primary" onClick={this.openNotification}>提交信息</Button>,
             },
         ];
@@ -108,7 +108,7 @@ class Inputpay extends Component {
                 输入工资
                 <Table
                     columns={this.columns}
-                    expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
+                    // expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
                     dataSource={this.state.data}
                 />,
             </div>

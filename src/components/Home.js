@@ -37,33 +37,30 @@ class Home extends Component {
         this.state = {
             open: false,
             userid: userServer.id,
-            a:1
+
         };
     }
-
-    // componentWillMount() {
-    //     userServer.getinfo(this.state.userid)
-    // }
-
+   
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
     }
     returnm = () => {
-        if (this.state.a) {
+        if (userServer.info.department === '人事部') {
             return <SubMenu
-            key="sub1"
-            title={
-                <span>
-                    <Icon type="database" />
-                    <span>管理信息</span>
-                </span>
-            }
-        >
-            <Menu.Item key="5"><Link to='/alluser'>所有员工信息</Link></Menu.Item>
-            <Menu.Item key="6"><Link to='/inputpay'>工资处理</Link> </Menu.Item>
-            <Menu.Item key="7">请假审核</Menu.Item>
-        </SubMenu> 
+                key="sub1"
+                title={
+                    <span>
+                        <Icon type="database" />
+                        <span>管理信息</span>
+                    </span>
+                }
+            >
+                <Menu.Item key="5"><Link to='/alluser'>所有员工信息</Link></Menu.Item>
+                <Menu.Item key="6"><Link to='/inputpay'>工资处理</Link> </Menu.Item>
+                <Menu.Item key="7">请假审核</Menu.Item>
+                <Menu.Item key="8">考勤查询</Menu.Item>
+            </SubMenu>
         }
     }
     render() {
@@ -71,10 +68,11 @@ class Home extends Component {
         // if (!userServer.succeed) {
         //     return <Redirect to='/login' />
         // }
-        console.log('时间：', (new Date()).getDay(),moment().format('MMMM Do , h:mm:ss a'))
+        console.log('部门信息：', userServer.info.department)
+        console.log('时间：', (new Date()).getDay(), moment().format('MMMM Do , h:mm:ss a'))
         if (!store.get('token')) {
-                return <Redirect to='/login' />
-            }
+            return <Redirect to='/' />
+        }
 
         return (
             <div>
@@ -124,7 +122,7 @@ class Home extends Component {
                                     请假申请
                                     <Link to="/holiday"></Link>
                                 </Menu.Item>
-                                    {/* <SubMenu
+                                {/* <SubMenu
                                     key="sub1"
                                     title={
                                         <span>
@@ -140,7 +138,7 @@ class Home extends Component {
                                     <Menu.Item key="7">Alex</Menu.Item>
                                 </SubMenu> */}
                                 {this.returnm()}
-                                
+
                             </Menu>
 
                         </Sider>
@@ -157,15 +155,15 @@ class Home extends Component {
 
                                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 
-                                {/* {this.returnm()} */}
+                                    {/* {this.returnm()} */}
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route  path="/user" component={User}></Route>
-                                    <Route  path="/holiday" component={Holiday}></Route>
-                                    <Route  path="/payroll" component={Payroll}></Route>
-                                    <Route  path="/alluser" component={Alluser}></Route>
-                                    <Route  path="/inputpay" component={Inputpay}></Route>
-                                    <Route exact path="/" component={result}></Route>
+                                    <Route path="/user" component={User}></Route>
+                                    <Route path="/holiday" component={Holiday}></Route>
+                                    <Route path="/payroll" component={Payroll}></Route>
+                                    <Route path="/alluser" component={Alluser}></Route>
+                                    <Route path="/inputpay" component={Inputpay}></Route>
+                                    <Route path="/" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

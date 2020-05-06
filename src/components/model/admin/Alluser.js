@@ -1,66 +1,93 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
-import axios from 'axios'
+import {
+    Table,
+    // Button,
+    notification
+} from 'antd';
+// import axios from 'axios'
 import userServer from '../../../service/user'
-const columns = [
-    {
-        title: '序号',
-        dataIndex: 'id',
-        width: 50,
-    },
-    {
-        title: '姓名',
-        dataIndex: 'name',
-        width: 100,
-    },
-    {
-        title: '邮箱',
-        dataIndex: 'email',
-        width: 100,
-    },
-    {
-        title: '手机号',
-        dataIndex: 'phone',
-        width: 100,
-    },
-    {
-        title: '性别',
-        dataIndex: 'gender',
-        width: 100,
-    },
-    {
-        title: '出生日期',
-        dataIndex: 'birthday',
-        width: 100,
-    },
-    {
-        title: '身份证',
-        dataIndex: 'IDcard',
-        width: 100,
-    },
-    {
-        title: '常住地址',
-        dataIndex: 'residence',
-        width: 100,
-    },
-];
-
+import Onboarding from './Onboarding'
 const data = userServer.getalluser();
 
 class Alluser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:data,
+            data: data,
         };
+        this.columns = [
+            {
+                title: '序号',
+                dataIndex: 'id',
+                key:'id'
+                // width: 100,
+            },
+            {
+                title: '姓名',
+                dataIndex: 'name',
+                key:'name'
+                // width: 100,
+            },
+            {
+                title: '邮箱',
+                dataIndex: 'email',
+                key:'email'
+                // width: 100,
+            },
+            {
+                title: '手机号',
+                dataIndex: 'phone',
+                key:'phone'
+                // width: 100,
+            },
+            {
+                title: '性别',
+                dataIndex: 'gender',
+                key:'gender'
+                // width: 100,
+            },
+            {
+                title: '出生日期',
+                dataIndex: 'birthday',
+                key:'birthday'
+                // width: 100,
+            },
+            {
+                title: '身份证',
+                dataIndex: 'IDcard',
+                key:'IDcard'
+                // width: 100,
+            },
+            {
+                title: '常住地址',
+                dataIndex: 'residence',
+                key:'residence'
+                // width: 100,
+            },
+            {
+                title: '提交',
+                dataIndex: 'x1',
+                key: 'x1',
+                // render: () => <Button icon="to-top" type="primary" onClick={this.openNotification}>员工入职</Button>,
+                render: (text, record) => <Onboarding id1={record.id} name1={record.name}></Onboarding>,
+            },
+        ]
     }
-
+    openNotification = () => {
+        const args = {
+            message: '添加信息成功',
+            description:
+                '已将添加的信息发送到数据库',
+            duration: 2,
+        };
+        notification.open(args);
+    };
     render() {
-        console.log('state',this.state.data)
+        console.log('state', this.state.data)
         return (
             <div>
                 所有员工信息
-                <Table columns={columns} dataSource={this.state.data} pagination={{ pageSize: 50 }} scroll={{ y: 400 }} />
+                <Table rowKey={'id'} columns={this.columns} dataSource={this.state.data} pagination={{ pageSize: 50 }} scroll={{ y: 400 }} />
             </div>
         );
     }

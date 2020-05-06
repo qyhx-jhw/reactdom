@@ -5,7 +5,7 @@ import userServer from '../../service/user'
 
 class Payroll extends Component {
   constructor(props) {
-    console.log(1)
+    // console.log(1)
     super(props);
     this.state = {
       data:userServer.data,
@@ -36,35 +36,28 @@ class Payroll extends Component {
       //   dataIndex: '',
       //   key: 'x',
       //   // render: () => <a>Delete</a>,
-      //   // render: () => <a>Delete</a>,
       // },
     ];
   }
   render() {
-    console.log('gzixinxi', this.state.data)
-    console.log(3)
-    
+    // console.log('gzixinxi', this.state.data)
+    // console.log(3)
     return (
       <div>
         工资表
         <Table
           bordered='true'
           columns={this.columns}
-          expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
+          // expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
           dataSource={this.state.data}
         />
-
         <Chart width={600} height={400} data={this.state.data} scale={this.state.cols}>
           <Axis name="time" title />
           <Axis name="pay" title />
           <Legend position="top" dy={-20} marker="square" />
-
           <Tooltip />
           <Geom type="interval" position="time*pay" color="time" />
-          {/* <Geom type="line" position="time*pay" size={2} /> */}
           <Geom type="line" position="time*pay" size={2} />
-
-
         </Chart>
       </div>
     );
