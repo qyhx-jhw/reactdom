@@ -46,7 +46,7 @@ class Result1 extends Component {
                 subTitle={`"注册时间：" ${moment().format('MMMM Do , h:mm:ss a')}`}
                 extra={[
                     <Button type="primary" key="console">
-                        <Link to='/login'>去登陆</Link>
+                        <Link to='/'>去登陆</Link>
                     </Button>,
                     <Button  type="primary" key="buy" onClick={this.updata}>
                          <Link to='/register'>重新注册</Link>
@@ -271,7 +271,7 @@ class Register extends Component {
                             注册
                     </Button>
                         <br></br>
-                        <Link to='/login'>已有账号去登陆</Link>
+                        <Link to='/'>已有账号去登陆</Link>
                     </Form.Item>
                 </Form>
             </div>

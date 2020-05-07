@@ -12,7 +12,7 @@ class UserService {
             data: [],
             info: '',//信息
             succeed: false, //登录是否成功
-            reg: true,
+            reg: false,
 
         })
 
@@ -77,8 +77,8 @@ class UserService {
         })
             .then(response => {
                 console.log('get用户个人信息成功', response.data);
-                var end_time1 = response.data.end_time
-                if (response.data.end_time === 'null') {
+                var end_time1 = response.data.end_time  //判断离职时间的字符属性
+                if (response.data.end_time === 'None') {
                     end_time1 = '空'
                 }
 

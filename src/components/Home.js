@@ -158,12 +158,12 @@ class Home extends Component {
                                     {/* {this.returnm()} */}
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route path="/user" component={User}></Route>
-                                    <Route path="/holiday" component={Holiday}></Route>
-                                    <Route path="/payroll" component={Payroll}></Route>
-                                    <Route path="/alluser" component={Alluser}></Route>
-                                    <Route path="/inputpay" component={Inputpay}></Route>
-                                    <Route path="/" component={result}></Route>
+                                    <Route exact path="/user" component={User}></Route>
+                                    <Route exact path="/holiday" component={Holiday}></Route>
+                                    <Route exact path="/payroll" component={Payroll}></Route>
+                                    <Route exact path="/alluser" component={Alluser}></Route>
+                                    <Route exact path="/inputpay" component={Inputpay}></Route>
+                                    <Route exact path="/" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

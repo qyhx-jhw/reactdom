@@ -83,13 +83,14 @@ class Login extends Component {
                         )}
                     </Form.Item>
                     <Form.Item>
-                        <Button
+                        <Captcha></Captcha>
+                        {/* <Button
                             type="dashed"
                             id='TencentCaptcha'
                             data-appid="2015130461"
                             data-cbfn="callback"
                             className="login-form-button"
-                        >获取验证码</Button>
+                        >获取验证码</Button> */}
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
@@ -97,7 +98,7 @@ class Login extends Component {
                     </Form.Item>
                 </Form>
 
-                <QRCode value="http://192.168.1.2:3000/" />,
+                <QRCode value="http://192.168.1.6:3000/" />,
 
             </div>
         );

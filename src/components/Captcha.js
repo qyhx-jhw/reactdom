@@ -64,8 +64,8 @@ class Captcha extends Component {
                 <Form.Item>
                     <Button
                         type="dashed"
-                        // id='TencentCaptcha'
-                        id={this.state.id}
+                        id='TencentCaptcha'
+                        // id={this.state.id}
                         data-appid="2015130461"
                         data-cbfn="callback"
                         className="login-form-button"
