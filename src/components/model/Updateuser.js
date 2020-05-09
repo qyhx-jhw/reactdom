@@ -4,13 +4,6 @@ import moment from 'moment';
 // import axios from 'axios' 
 import userServer from '../../service/user'
 const { Option } = Select;
-// class Userinfo extends Component {
-//     render() {
-//         return (
-//             <_Userinfo service={userServer} />
-//         );
-//     }
-// }
 
 class _Userinfo extends Component {
     constructor(props) {

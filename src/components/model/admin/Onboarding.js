@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
-// import moment from 'moment';
+import moment from 'moment';
 // import axios from 'axios' 
 import userServer from '../../../service/user'
 const { Option } = Select;
@@ -11,18 +11,34 @@ class _Onboarding extends Component {
         this.state = {
             visible: false,//是否可见
             data: {
-                id: '',
-                name: '',
+                id: '', //id号码
+                name: '', //员姓名
+                job: '', //职位信息
+                start_time: '', //入职时间，时间控件特殊单独拿出来
+                end_time: ''//离职时间
+
             }
         };
     }
     //显示抽屉加载初始值
     showDrawer = () => {
+
+        //判断离职时间：没有值测为null，有值测显示为moment的格式
+        var endtime = this.props.job.end_time
+        if (endtime) {
+            endtime = moment(this.props.job.end_time, 'YYYY-MM-DD')
+        } else {
+            endtime = null
+        }
+
         this.setState({
             visible: true,
             data: {
                 id: this.props.id1,
                 name: this.props.name1,
+                job: this.props.job,
+                start_time: moment(this.props.job.start_time, 'YYYY-MM-DD'), //显示入职时间的格式moment
+                end_time: endtime,
             }
         });
     };
@@ -57,19 +73,19 @@ class _Onboarding extends Component {
                 let department = value.department
                 let position = value.position
                 let situation = value.situation
-                userServer.getjob(id,name,start_time,end_time,department,position,situation)
+                userServer.getjob(id, name, start_time, end_time, department, position, situation)
 
             }
         });
     };
     render() {
-        // console.log('8787878', this.props.id1, this.props.name1)
+        // console.log('8787878', this.props.id1, this.props.name1, this.props.job.end_time)
         const { getFieldDecorator } = this.props.form;
         return (
             <div>
                 <Button type="primary" onClick={this.showDrawer}>
                     <Icon type="form" />
-                    员工入职
+                    员工职位信息
                 </Button>
                 <br />
                 <Drawer
@@ -110,23 +126,17 @@ class _Onboarding extends Component {
                             <Col span={12}>
                                 <Form.Item label="入职时间：">
                                     {getFieldDecorator('start_time', {
-                                        rules: [{
-                                            type: 'object',
-                                            required: true,
-                                            message: '请选择入职时间!'
-                                        }],
-
+                                        rules: [{ type: 'object', required: true, message: '请选择入职时间!' }],
+                                        // rules: [{ type: 'object', required: true, message: '请选择时间!' }],
+                                        initialValue: this.state.data.start_time
                                     })(<DatePicker />)}
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
                                 <Form.Item label="离职时间：">
                                     {getFieldDecorator('end_time', {
-                                        rules: [{
-                                            type: 'object',
-                                            required: false,
-                                            // message: '请选择离职时间!'
-                                        }],
+                                        rules: [{ type: 'object', required: false }],
+                                        initialValue: this.state.data.end_time
                                     })(<DatePicker />)}
                                 </Form.Item>
                             </Col>
@@ -136,19 +146,19 @@ class _Onboarding extends Component {
                                 <Form.Item label="部门：">
                                     {getFieldDecorator('department', {
                                         rules: [{ required: true, message: '请输入部门' }],
-                                        // initialValue: this.state.data.name
+                                        initialValue: this.state.data.job.department
                                     })(<Input placeholder="输入员工部门" />)}
                                 </Form.Item>
                                 <Form.Item label="岗位：">
                                     {getFieldDecorator('position', {
                                         rules: [{ required: true, message: '请输入岗位' }],
-                                        // initialValue: this.state.data.name
+                                        initialValue: this.state.data.job.position
                                     })(<Input placeholder="输入员工部门" />)}
                                 </Form.Item>
                                 <Form.Item label="在职情况：">
-                                {getFieldDecorator('situation', {
+                                    {getFieldDecorator('situation', {
                                         rules: [{ required: true, message: '请选择在职情况!' }],
-                                        initialValue: this.state.data.gender
+                                        initialValue: this.state.data.job.situation
                                     })(
                                         <Select placeholder="在职情况">
                                             <Option value="在职">在职</Option>

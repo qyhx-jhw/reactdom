@@ -6,6 +6,9 @@ import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
 import Alluser from './model/admin/Alluser'
 import Inputpay from './model/admin/Inputpay'
+import Makeholiday from './model/admin/Makeholiday'
+import Attendance from './model/admin/Attendance'
+
 import IMG from '../assets/images/lt.jpg'
 import store from 'store'
 import { observer } from 'mobx-react'
@@ -40,7 +43,7 @@ class Home extends Component {
 
         };
     }
-   
+
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
@@ -58,8 +61,8 @@ class Home extends Component {
             >
                 <Menu.Item key="5"><Link to='/alluser'>所有员工信息</Link></Menu.Item>
                 <Menu.Item key="6"><Link to='/inputpay'>工资处理</Link> </Menu.Item>
-                <Menu.Item key="7">请假审核</Menu.Item>
-                <Menu.Item key="8">考勤查询</Menu.Item>
+                <Menu.Item key="7"><Link to='/makeholiday'>请假审核</Link> </Menu.Item>
+                <Menu.Item key="8"><Link to='/attendance'>考勤查询</Link></Menu.Item>
             </SubMenu>
         }
     }
@@ -68,8 +71,8 @@ class Home extends Component {
         // if (!userServer.succeed) {
         //     return <Redirect to='/login' />
         // }
-        console.log('部门信息：', userServer.info.department)
-        console.log('时间：', (new Date()).getDay(), moment().format('MMMM Do , h:mm:ss a'))
+        // console.log('部门信息：', userServer.info.department)
+        // console.log('时间：', (new Date()).getDay(), moment().format('MMMM Do , h:mm:ss a'))
         if (!store.get('token')) {
             return <Redirect to='/' />
         }
@@ -158,11 +161,13 @@ class Home extends Component {
                                     {/* {this.returnm()} */}
                                     {/* {this.state.open?<Route path="/home/check/:open" component={Check_in}></Route>:''} */}
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
-                                    <Route exact path="/user" component={User}></Route>
-                                    <Route exact path="/holiday" component={Holiday}></Route>
-                                    <Route exact path="/payroll" component={Payroll}></Route>
-                                    <Route exact path="/alluser" component={Alluser}></Route>
-                                    <Route exact path="/inputpay" component={Inputpay}></Route>
+                                    <Route path="/user" component={User}></Route>
+                                    <Route path="/holiday" component={Holiday}></Route>
+                                    <Route path="/payroll" component={Payroll}></Route>
+                                    <Route path="/alluser" component={Alluser}></Route>
+                                    <Route path="/inputpay" component={Inputpay}></Route>
+                                    <Route path="/makeholiday" component={Makeholiday}></Route>
+                                    <Route path="/attendance" component={Attendance}></Route>
                                     <Route exact path="/" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>

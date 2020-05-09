@@ -139,20 +139,37 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('get所有员工信息成功', response.data);
-                for (let i = 0; i < response.data.length; i++) {
-
+                console.log('get所有员工信息成功', response.data, response.data.job_info, typeof (response.data.job_info[0].id));
+                for (let i = 0; i < response.data.query.length; i++) {
+                    // data.push({//员工信息
+                    //     id: response.data[i].id,
+                    //     name: response.data[i].name,
+                    //     email: response.data[i].email,
+                    //     phone: response.data[i].phone,
+                    //     gender: response.data[i].gender,
+                    //     birthday: response.data[i].birthday,
+                    //     IDcard: response.data[i].IDcard,
+                    //     residence: response.data[i].residence,
+                    // });
+                    function checkAdult(age) {
+                        return age.jid_id === response.data.query[i].id;
+                    }
+                    // console.log('11',response.data.query[i].id,response.data.job_info.find(checkAdult))
                     data.push({//员工信息
-                        id: response.data[i].id,
-                        name: response.data[i].name,
-                        email: response.data[i].email,
-                        phone: response.data[i].phone,
-                        gender: response.data[i].gender,
-                        birthday: response.data[i].birthday,
-                        IDcard: response.data[i].IDcard,
-                        residence: response.data[i].residence,
+                        id: response.data.query[i].id,
+                        name: response.data.query[i].name,
+                        email: response.data.query[i].email,
+                        phone: response.data.query[i].phone,
+                        gender: response.data.query[i].gender,
+                        birthday: response.data.query[i].birthday,
+                        IDcard: response.data.query[i].IDcard,
+                        residence: response.data.query[i].residence,
+
+                        job_info: response.data.job_info.find(checkAdult),
+                        department: response.data.job_info.find(checkAdult).department
                     });
                 }
+
                 // console.log('get成功222', data);
 
             })
@@ -194,7 +211,7 @@ class UserService {
         console.log('ID和name', this.data);
         // return data
     }
-    //入职信息
+    //入职信息以及职位变更
     getjob(id, name, start_time, end_time, department, position, situation) {
         let url = 'api/user/job'
         axios.post(
@@ -212,7 +229,7 @@ class UserService {
             .then((response) => {
                 console.log('入职信息', response, response.statusText);
                 // this.getinfo()
-                alert('入职成功')
+                alert('职位信息修改成功')
                 // this.update = (new Date()).getTime()
             })
             .catch((error) => {

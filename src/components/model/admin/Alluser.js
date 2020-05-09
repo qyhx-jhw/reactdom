@@ -65,11 +65,17 @@ class Alluser extends Component {
                 // width: 100,
             },
             {
+                // title: 'job',
+                dataIndex: 'job_info',
+                key:'job_info'
+                // width: 100,
+            },
+            {
                 title: '提交',
                 dataIndex: 'x1',
                 key: 'x1',
                 // render: () => <Button icon="to-top" type="primary" onClick={this.openNotification}>员工入职</Button>,
-                render: (text, record) => <Onboarding id1={record.id} name1={record.name}></Onboarding>,
+                render: (text, record) => <Onboarding id1={record.id} name1={record.name} job={record.job_info}></Onboarding>,
             },
         ]
     }
@@ -83,7 +89,7 @@ class Alluser extends Component {
         notification.open(args);
     };
     render() {
-        console.log('state', this.state.data)
+        // console.log('state', this.state.data)
         return (
             <div>
                 所有员工信息
