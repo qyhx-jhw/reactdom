@@ -8,7 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 // import axios from 'axios' //消息处理
 // import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
-import userServer from '../service/user'
+import userServer from '../service/userServer'
 import store from 'store'
 import Captcha from './Captcha'
 

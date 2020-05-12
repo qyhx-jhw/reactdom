@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
 import moment from 'moment';
 // import axios from 'axios' 
-import userServer from '../../service/user'
+import userServer from '../../service/userServer'
 const { Option } = Select;
 
 class _Userinfo extends Component {

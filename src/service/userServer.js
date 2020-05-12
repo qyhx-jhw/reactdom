@@ -166,7 +166,8 @@ class UserService {
                         residence: response.data.query[i].residence,
 
                         job_info: response.data.job_info.find(checkAdult),
-                        department: response.data.job_info.find(checkAdult).department
+                        department: response.data.job_info.find(checkAdult).department,
+                        position:response.data.job_info.find(checkAdult).position
                     });
                 }
 
@@ -210,6 +211,29 @@ class UserService {
             })
         console.log('ID和name', this.data);
         // return data
+    }
+
+    //提交工资信息
+    postpay(id,name,time,basic_wage,subsidy,deduction,pay) {
+        let url = 'api/user/postpay'
+        axios.post(
+            url, {
+            userid: id,
+            name: name,
+            time: time,
+            basic_wage: basic_wage,
+            subsidy: subsidy,
+            deduction: deduction,
+            pay: pay,
+        })
+            .then((response) => {
+                console.log('上次工资信息', response, response.statusText);
+                alert('添加工资成功')
+                // this.update = (new Date()).getTime()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     //入职信息以及职位变更
     getjob(id, name, start_time, end_time, department, position, situation) {

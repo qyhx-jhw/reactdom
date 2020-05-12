@@ -3,7 +3,7 @@ import { Descriptions } from 'antd';
 import Updateuser from './Updateuser'
 // import url from 'url'
 // import axios from 'axios' 
-import userServer from '../../service/user'
+import userServer from '../../service/userServer'
 import { observer } from 'mobx-react'
 // import { Link, Redirect } from "react-router-dom";
 // const info=userServer.getinfo(userServer.id)

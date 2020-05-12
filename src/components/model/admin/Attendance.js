@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 // import {} from 'antd';
-import { Form, DatePicker, TimePicker, Table, Badge, Menu, Dropdown, Icon, Button, Select } from 'antd';
+import {
+    Form, DatePicker,
+    // TimePicker,
+    Table, Badge,
+    // Menu, Dropdown, Icon,
+    Button,
+    // Select
+} from 'antd';
 
 const { MonthPicker } = DatePicker;
 const expandedRowRender = () => {
@@ -53,7 +60,7 @@ for (let index = 1; index <= 30; index++) {
         key: index,
         render: (text, record) => {
             
-            if (record.id == 1 && index===15) {
+            if (record.id === 1 && index===15) {
                 return (
                     <Badge status="error" />
                 )
@@ -66,7 +73,7 @@ for (let index = 1; index <= 30; index++) {
         }
     })
 }
-const { Option } = Select;
+// const { Option } = Select;
 const columns = [
     { title: '序号', dataIndex: 'id', key: 'id' },
     { title: '姓名', dataIndex: 'name', key: 'name' },

@@ -1,133 +1,82 @@
 import React, { Component } from 'react';
 import { Table, InputNumber, DatePicker, Button, notification, Form } from 'antd';
-import userServer from '../../../service/user'
-
+import userServer from '../../../service/userServer'
+// import { values } from 'mobx';
+import Postpay from './Postpay'
 const data = userServer.getalluser();
-// console.log('*****',userserver.name)
-// const tj = () => {
-//     return <Button icon="to-top" type="primary" >提交信息</Button>
-// }
+const expandedRowRender = () => {
+    const columns = [
+        { title: '序号', dataIndex: 'id', key: 'id' },
+        { title: '姓名', dataIndex: 'name', key: 'name' },
+        { title: '部门', dataIndex: 'department', key: 'department' },
+        { title: '岗位', dataIndex: 'position', key: 'address' },
+        { title: '时间', dataIndex: 'time', key: 'time' },
+        { title: '基础工资', dataIndex: 'basic_wage', key: 'basic_wage' },
+        { title: '补助', dataIndex: 'subsidy', key: 'subsidy' },
+        { title: '扣除部分', dataIndex: 'deduction', key: 'deduction' },
+        { title: '实际工资', dataIndex: 'pay', key: 'pay' },
 
-class Tj extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  };
-    }
-    render() {
-        return (
-            <Button icon="to-top" type="primary" >提交信息</Button>
-        );
-    }
+    ];
+    const data = [
+        {
+            id: 1,
+            name: '小张',
+            department: '技术部',
+            position:'网络维护',
+            time: '2019-10-01',
+            basic_wage: 5000,
+            subsidy: 500,
+            deduction: 200,
+            pay:5300,
+        },
+        {
+            id: 1,
+            name: '小张',
+            department: '技术部',
+            position:'网络维护',
+            time: '2019-11-01',
+            basic_wage: 5000,
+            subsidy: 600,
+            deduction: 200,
+            pay:5600,
+        },
+        {
+            id: 1,
+            name: '小张',
+            department: '技术部',
+            position:'网络维护',
+            time: '2019-09-05',
+            basic_wage: 5000,
+            subsidy: 500,
+            deduction: 200,
+            pay:5300,
+        }
+    ];
+    return <Table columns={columns} dataSource={data} pagination={false} />;
 }
-
-
-
 class Inputpay1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: data,
+            pay: ''
         };
-        const { getFieldDecorator } = this.props.form;
+        // const { getFieldDecorator } = this.props.form;
+
         this.columns = [
-            {
-                title: '序号', dataIndex: 'id', key: 'id',
-                render: (text,record) =>
-                getFieldDecorator('id', {
-                    rules: [{required: true}],
-                    initialValue:text
-                })(<a>{text}</a>)
-                
-            },
+            { title: '序号', dataIndex: 'id', key: 'id', },
             { title: '姓名', dataIndex: 'name', key: 'name' },
             { title: '部门', dataIndex: 'department', key: 'department' },
-            // { title: 'Address', dataIndex: 'address', key: 'address' },
+            { title: '岗位', dataIndex: 'position', key: 'address' },
             {
-                title: '时间',
-                dataIndex: 'time',
-                key: 'time',
-                render: () => (<DatePicker />),
-            },
-            {
-                title: '基础工资',
-                dataIndex: 'x1',
-                key: 'x1',
-                render: () => <InputNumber
-                    defaultValue={5000}
-                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={this.onChange}
-                />,
-            },
-            {
-                title: '补助工资',
-                dataIndex: 'x2',
-                key: 'x2',
-                render: () =>
-                    getFieldDecorator('补助工资', {
-                        rules: [{ required: true, message: '请选择您的工资!' }],
-                        initialValue:500
-                    })
-                        (
-                        < InputNumber formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                        } parser={value => value.replace(/\$\s?|(,*)/g, '')} onChange={this.onChange} />)
-
-
-            },
-            {
-                title: '扣除部分',
-                dataIndex: 'x3',
-                key: 'x3',
-                render: () => <InputNumber
-                    defaultValue={200}
-                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={this.onChange}
-                />,
-            },
-            {
-                title: '实际工资',
-                dataIndex: 'x4',
-                key: 'x4',
-                render: () => <InputNumber
-                    defaultValue={5000}
-                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={this.onChange}
-                />,
-            },
-            {
-                title: '提交',
-                dataIndex: 'x5',
-                key: 'x5',
-                // render: () => <Button icon="to-top" type="primary" onClick={this.openNotification}>提交信息</Button>,
-                render: () => <Tj></Tj>,
-
+                title: '添加工资',
+                dataIndex: 'up',
+                key: 'up',
+                render: (text,record) => <Postpay id1={record.id} name1={record.name}></Postpay>,
             },
         ];
     }
 
-    // handleSubmit = e => {
-    //     e.preventDefault();
-    //     this.props.form.validateFieldsAndScroll((err, values) => {
-    //         // if (!err) {
-    //         //     const value = {
-    //         //         ...values,
-    //         //         'birthday': values['birthday'].format('YYYY-MM-DD'),
-    //         //     }
-    //             console.log('Received values of form: ', values);
-    //             // let name=value.name
-    //             // let email= value.email
-    //             // let phone= value.phone
-    //             // let gender= value.gender
-    //             // let birthday= value.birthday
-    //             // let IDcard= value.IDcard
-    //             // let residence= value.residence
-    //             // userServer.updateuser(name,email,phone,gender,birthday,IDcard,residence)
-                
-    //         // }
-    //     });
-    // };
     onChange = (value) => {
         console.log('changed', value);
     }
@@ -147,11 +96,11 @@ class Inputpay1 extends Component {
             <div>
                 输入工资
                 <Table
+                    rowKey={'id'}
                     columns={this.columns}
-                    // expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
+                    expandedRowRender={expandedRowRender}
                     dataSource={this.state.data}
-                />,
-                <Button icon="to-top" type="primary" onClick={this.handleSubmit}>提交信息</Button>,
+                />
             </div>
         );
     }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Badge, Menu, Dropdown, Icon, Button, Select } from 'antd';
+import {
+    Table, Badge,
+    // Menu, Dropdown, Icon,
+    Button, Select
+} from 'antd';
 
 const expandedRowRender = () => {
     const columns = [

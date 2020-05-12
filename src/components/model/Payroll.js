@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend } from 'bizcharts';
-import userServer from '../../service/user'
+import userServer from '../../service/userServer'
 
 class Payroll extends Component {
   constructor(props) {

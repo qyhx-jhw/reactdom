@@ -6,14 +6,18 @@ import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
 import Alluser from './model/admin/Alluser'
 import Inputpay from './model/admin/Inputpay'
+
+
+import Test from './model/admin/Test'
+
+
 import Makeholiday from './model/admin/Makeholiday'
 import Attendance from './model/admin/Attendance'
-
 import IMG from '../assets/images/lt.jpg'
 import store from 'store'
 import { observer } from 'mobx-react'
 import moment from 'moment';
-import userServer from '../service/user'
+import userServer from '../service/userServer'
 import {
     BrowserRouter as Router, Route,
     Redirect,
@@ -63,6 +67,7 @@ class Home extends Component {
                 <Menu.Item key="6"><Link to='/inputpay'>工资处理</Link> </Menu.Item>
                 <Menu.Item key="7"><Link to='/makeholiday'>请假审核</Link> </Menu.Item>
                 <Menu.Item key="8"><Link to='/attendance'>考勤查询</Link></Menu.Item>
+                <Menu.Item key="9"><Link to='/test'>测试</Link> </Menu.Item>
             </SubMenu>
         }
     }
@@ -169,6 +174,7 @@ class Home extends Component {
                                     <Route path="/makeholiday" component={Makeholiday}></Route>
                                     <Route path="/attendance" component={Attendance}></Route>
                                     <Route exact path="/" component={result}></Route>
+                                    <Route path="/test" component={Test}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

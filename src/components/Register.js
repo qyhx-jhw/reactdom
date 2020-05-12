@@ -9,7 +9,7 @@ import {
 // import Captcha from './Captcha'
 import moment from 'moment';
 import { observer } from 'mobx-react'
-import userServer from '../service/user'
+import userServer from '../service/userServer'
 import 'moment/locale/zh-cn';
 // import { Link } from 'react-router-dom';
 import {

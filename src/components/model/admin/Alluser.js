@@ -5,7 +5,7 @@ import {
     notification
 } from 'antd';
 // import axios from 'axios'
-import userServer from '../../../service/user'
+import userServer from '../../../service/userServer'
 import Onboarding from './Onboarding'
 const data = userServer.getalluser();
 
