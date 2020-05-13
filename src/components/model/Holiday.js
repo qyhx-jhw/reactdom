@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import { Table, Comment, Avatar, Form, Button, List, Input } from 'antd';
-import { Form, Icon, Input, Button, Table,DatePicker  } from 'antd';
+import { Form, Icon, Input, Button, Table, DatePicker, Badge } from 'antd';
 import moment from 'moment';
-const {RangePicker} = DatePicker;
+import userServer from '../../service/userServer'
+const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const columns = [
     {
@@ -22,9 +23,16 @@ const columns = [
         //   width: 150,
     },
     {
-        title: '时间',
-        dataIndex: 'time',
-        key: 'tiem',
+        title: '开始时间',
+        dataIndex: 'start_time',
+        key: 'start_time',
+        // width: 80,
+        // defaultSortOrder:'descend'
+    },
+    {
+        title: '结束时间',
+        dataIndex: 'end_time',
+        key: 'end_time',
         // width: 80,
         // defaultSortOrder:'descend'
     },
@@ -38,35 +46,67 @@ const columns = [
         title: '审核状态',
         dataIndex: 'status',
         key: 'status',
-        ellipsis: true,
+        // ellipsis: true,
+        render: (text, render) => <div>
+            {text === '审批中' && <Badge status="success" text="审批中" />}
+            {text === '同意' && <Badge status="processing" text="同意" />}
+            {text === '不同意' && <Badge status="error" text="审核中" />}
+        </div>
     },
 ];
-const data = []
-for (let index = 1; index < 20; index++) {
-    data.push({
-        id: index,
-        name: 'Joe Black',
-        time: '2019-05-20',
-        reason: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park,Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
-        status: '同意',
+const aaa = userServer.get_holiday()
+// var data = []
+// for (let index = 0; index < aaa.length; index++) {
+//     // console.log('shuju', aaa[index])
+//     if (userServer.id === aaa[index].hid) {
+//         // console.log('shuju', aaa[index])
+//         data.push(aaa[index])
+//     }
+// }
+// for (let index = 1; index < 20; index++) {
+//     data.push({
+//         id: index,
+//         name: 'Joe Black',
+//         time: '2019-05-20',
+//         reason: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park,Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
+//         status: '同意',
 
-    })
+//     })
 
-}
+// }
 
 
 class Holiday1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            data:[]
         }
-
+        // const aaa = userServer.get_holiday()
+        // var data = []
+        for (let index = 0; index < aaa.length; index++) {
+            // console.log('shuju', aaa[index])
+            if (userServer.id === aaa[index].hid) {
+                console.log('shuju', aaa[index])
+                this.state.data.push(aaa[index])
+            }
+        }
     }
-    componentDidMount() {
-        // To disable submit button at the beginning.
-        this.props.form.validateFields();
-    }
+    // componentDidMount() {
+    //     // To disable submit button at the beginning.
+    //     this.props.form.validateFields();
+    // }
+    // componentDidMount() {
+    //     const aaa = userServer.get_holiday()
+    //     // var data = []
+    //     for (let index = 0; index < aaa.length; index++) {
+    //         // console.log('shuju', aaa[index])
+    //         if (userServer.id === aaa[index].hid) {
+    //             console.log('shuju', aaa[index])
+    //             this.state.data.push(aaa[index])
+    //         }
+    //     }
+    // }
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -77,31 +117,27 @@ class Holiday1 extends Component {
                     'end_time': values['time'][1].format('YYYY-MM-DD'),
                 }
                 console.log('Received values of form: ', value);
-                // let id = this.state.data.id
-                // let name = this.state.data.name
-                // let start_time = value.start_time
-                // let end_time = value.end_time
-                // let department = value.department
-                // let position = value.position
-                // let situation = value.situation
-                // userServer.getjob(id, name, start_time, end_time, department, position, situation)
-
+                let start_time = value.start_time
+                let end_time = value.end_time
+                let reason = value.reason
+                let status = '审批中'
+                console.log('请假申请: ', start_time, end_time, reason, status);
+                userServer.post_holiday(start_time, end_time, reason, status)
             }
         });
     };
     onChange(date, dateString) {
         console.log(date, dateString);
-      }
+    }
     render() {
         // const { comments, submitting, value } = this.state;
         const { getFieldDecorator } = this.props.form;
-
         // Only show error after a field is touched.
         return (
             <div>
                 历史记录
-                <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5 }} />
-                <hr />
+                <Table columns={columns} dataSource={this.state.data} pagination={{ defaultPageSize: 5 }} />
+                <br />
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item>
                         {getFieldDecorator('time', {
@@ -118,11 +154,11 @@ class Holiday1 extends Component {
                         )}
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" style={{ width: 300 }} onClick={this.handleSubmit}>
+                        <Button type="primary" htmlType="submit" style={{ width: 300 }} >
                             提交
                         </Button>
                     </Form.Item>
-                    <hr />
+                   
                 </Form>
             </div>
         );

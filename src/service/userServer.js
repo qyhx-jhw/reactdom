@@ -283,6 +283,63 @@ class UserService {
                 console.log(error);
             });
     }
+
+    //提交请假申请
+    post_holiday(start_time,end_time,reason, status) {
+        let url = 'api/user/post_holiday'
+        axios.post(
+            url, {
+            userid: this.id,
+            name: this.name,
+            start_time: start_time,
+            end_time: end_time,
+            reason: reason,
+            status: status,
+        })
+            .then((response) => {
+                // console.log('提交请假申请', response,);
+                alert('请假提交成功')
+                this.get_holiday()
+                // this.update = (new Date()).getTime()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    //获得请假申请
+    get_holiday() {
+        let data = []
+        // let name=this.name
+        let surl = '/api/user/get_holiday'
+        axios.get(surl, {
+            params: {
+            }
+        })
+            .then(response => {
+                console.log('拿到请假成功', response.data.query, response.data.query.length);
+                // data.push(response.data)
+                // return response.data
+                // data=response.data.query
+                for (let i = 0; i < response.data.query.length; i++) {
+                    data.push({
+                        id: response.data.query[i].id,
+                        // name: response.data[response.data.length - 1],
+                        name: response.data.query[i].name,
+
+                        start_time: response.data.query[i].start_time,
+                        end_time: response.data.query[i].end_time,
+                        reason: response.data.query[i].reason,
+                        status: response.data.query[i].status,
+                        hid: response.data.query[i].hid_id
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('get失败', error);
+            })
+        return data
+    }
 }
 const userServer = new UserService();
 export default userServer;
