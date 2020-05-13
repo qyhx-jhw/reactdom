@@ -20,7 +20,6 @@ class Payroll extends Component {
           type: 'timeCat',
           alias: '月份',
         },
-
       },
     };
     this.columns = [
@@ -31,12 +30,6 @@ class Payroll extends Component {
       { title: '补贴', dataIndex: 'subsidy', key: 'subsidy' },
       { title: '扣除五险一金', dataIndex: 'deduction', key: 'deduction' },
       { title: '实际工资', dataIndex: 'pay', key: 'pay' },
-      // {
-      //   title: '详情',
-      //   dataIndex: '',
-      //   key: 'x',
-      //   // render: () => <a>Delete</a>,
-      // },
     ];
   }
   render() {

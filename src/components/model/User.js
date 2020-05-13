@@ -16,36 +16,18 @@ class User extends Component {
             update: userServer.update,
             userid: userServer.id,
             Info: userServer.info,
-            // Info: '',
-            // job_info: {//职位信息
-            //     start: '2019-09-01',
-            //     end: '',
-            //     pay: '8000',
-            //     department: '研发部',
-            //     position: '网络维护',
-            //     Introduction: '在职'
-            // }
-
         };
         this.setState({
             Info: userServer.info
         })
     }
-    // componentDidUpdate() {
-    //      userServer.getinfo(this.state.userid)
-        
-    // }
     componentWillMount() {
         this.setState({
             Info: userServer.info
         })
     }
 
-
     render() {
-        // console.log('个人信息的id', this.state.userid)
-        // console.log('个人', this.state.Info)
-
         return (
             <div>
                 <Descriptions title="员工信息" layout="horizontal" bordered="true" size='small'>

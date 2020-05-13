@@ -10,10 +10,10 @@ class UserService {
             id: '',  //返回的用户id
             name: '',
             data: [],
+            paydata:[],
             info: '',//信息
             succeed: false, //登录是否成功
             reg: false,
-
         })
 
     }
@@ -28,7 +28,7 @@ class UserService {
             password: password
         })
             .then(response => {
-                console.log('登录返回值', response.data);
+                // console.log('登录返回值', response.data);
                 store.set('token', response.data.token, (new Date()).getTime() + (8 * 3600 * 1000));
 
                 this.id = response.data.user.id;
@@ -57,7 +57,7 @@ class UserService {
             residence: residence
         })
             .then((response) => {
-                console.log('response', response);
+                // console.log('response', response);
                 this.reg = true;
                 alert('注册成功')
 
@@ -76,7 +76,7 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('get用户个人信息成功', response.data);
+                // console.log('get用户个人信息成功', response.data);
                 var end_time1 = response.data.end_time  //判断离职时间的字符属性
                 if (response.data.end_time === 'None') {
                     end_time1 = '空'
@@ -120,7 +120,7 @@ class UserService {
             residence: residence
         })
             .then((response) => {
-                console.log('修改的返回值', response, response.statusText);
+                // console.log('修改的返回值', response, response.statusText);
                 this.getinfo()
                 alert('修改信息成功')
                 this.update = (new Date()).getTime()
@@ -139,18 +139,8 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('get所有员工信息成功', response.data, response.data.job_info, typeof (response.data.job_info[0].id));
+                // console.log('get所有员工信息成功', response.data, response.data.job_info, typeof (response.data.job_info[0].id));
                 for (let i = 0; i < response.data.query.length; i++) {
-                    // data.push({//员工信息
-                    //     id: response.data[i].id,
-                    //     name: response.data[i].name,
-                    //     email: response.data[i].email,
-                    //     phone: response.data[i].phone,
-                    //     gender: response.data[i].gender,
-                    //     birthday: response.data[i].birthday,
-                    //     IDcard: response.data[i].IDcard,
-                    //     residence: response.data[i].residence,
-                    // });
                     function checkAdult(age) {
                         return age.jid_id === response.data.query[i].id;
                     }
@@ -209,7 +199,7 @@ class UserService {
             .catch(error => {
                 console.log('get失败', error);
             })
-        console.log('ID和name', this.data);
+        // console.log('ID和name', this.data);
         // return data
     }
 
@@ -227,7 +217,7 @@ class UserService {
             pay: pay,
         })
             .then((response) => {
-                console.log('上次工资信息', response, response.statusText);
+                // console.log('上次工资信息', response, response.statusText);
                 alert('添加工资成功')
                 // this.update = (new Date()).getTime()
             })
@@ -235,6 +225,39 @@ class UserService {
                 console.log(error);
             });
     }
+    //查往届工资用于管理员
+    getpayroll() {
+        let data = []
+        // let name=this.name
+        let surl = '/api/user/getpayorll'
+        axios.get(surl, {
+            params: {
+            }
+        })
+            .then(response => {
+                console.log('拿到工资成功', response.data.query, response.data.query.length);
+                // data.push(response.data)
+                // return response.data
+                // data=response.data.query
+                for (let i = 0; i < response.data.query.length; i++) {
+                    data.push({
+                        id: response.data.query[i].id,
+                        // name: response.data[response.data.length - 1],
+                        time: response.data.query[i].time,
+                        basic_wage: response.data.query[i].basic_wage,
+                        subsidy: response.data.query[i].subsidy,
+                        deduction: response.data.query[i].deduction,
+                        pay: response.data.query[i].pay,
+                        pid: response.data.query[i].pid_id
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('get失败', error);
+            })
+        return data
+    }
+
     //入职信息以及职位变更
     getjob(id, name, start_time, end_time, department, position, situation) {
         let url = 'api/user/job'

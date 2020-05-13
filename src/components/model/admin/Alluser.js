@@ -89,7 +89,7 @@ class Alluser extends Component {
         notification.open(args);
     };
     render() {
-        // console.log('state', this.state.data)
+        console.log('state', data)
         return (
             <div>
                 所有员工信息

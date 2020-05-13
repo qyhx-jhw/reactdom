@@ -155,7 +155,7 @@ class Attendance1 extends Component {
                 <Table
                     className="components-table-demo-nested"
                     columns={columns}
-                    // expandedRowRender={expandedRowRender}
+                    expandedRowRender={expandedRowRender}
                     dataSource={data}
                     bordered
                     size={"small"}

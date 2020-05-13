@@ -96,6 +96,16 @@ const data = [
         end_time: '2019-11-22',
         reason: '朋友结婚',
         status: 0,
+    },
+    {
+
+        id: 3,
+            name: '小王',
+            time: '2019-11-20 15:12:00',
+            start_time: '2019-11-21',
+            end_time: '2019-11-22',
+            reason: '朋友结婚',
+            status: 0,
     }
 ];
 // for (let i = 0; i < 3; ++i) {
