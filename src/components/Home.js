@@ -6,13 +6,11 @@ import Payroll from './model/Payroll'
 import Holiday from './model/Holiday'
 import Alluser from './model/admin/Alluser'
 import Inputpay from './model/admin/Inputpay'
-
-
-
+import Check from './model/Check'
 
 import Makeholiday from './model/admin/Makeholiday'
 import Attendance from './model/admin/Attendance'
-import IMG from '../assets/images/lt.jpg'
+// import IMG from '../assets/images/lt.jpg'
 import store from 'store'
 import { observer } from 'mobx-react'
 import moment from 'moment';
@@ -23,7 +21,7 @@ import {
     Link
 } from "react-router-dom";
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 class result extends Component {
     render() {
@@ -43,10 +41,8 @@ class Home extends Component {
         this.state = {
             open: false,
             userid: userServer.id,
-
         };
     }
-
     chenge = () => {
         this.state.open ? this.setState({ open: false }) : this.setState({ open: true })
 
@@ -69,17 +65,14 @@ class Home extends Component {
             </SubMenu>
         }
     }
+
     render() {
-        // const { open } = this.state.open
-        // if (!userServer.succeed) {
-        //     return <Redirect to='/login' />
+        // if (!store.get('token')) {
+        //     return <Redirect to='/' />
         // }
-        // console.log('部门信息：', userServer.info.department)
-        // console.log('时间：', (new Date()).getDay(), moment().format('MMMM Do , h:mm:ss a'))
-        if (!store.get('token')) {
+        if (!userServer.succeed) {
             return <Redirect to='/' />
         }
-
         return (
             <div>
                 <Router>
@@ -98,15 +91,15 @@ class Home extends Component {
                                 console.log(collapsed, type);
                             }}
                         >
-                            <div className="logo" >
+                            {/* <div className="logo" >
                                 <img src={IMG} height='42px' alt='沙漠骆驼'></img>
-                            </div>
+                            </div> */}
                             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} >
                                 <Menu.Item key="1">
 
                                     <Icon type="smile" theme="outlined" />
                                     打卡签到
-                                    <Link to={`/check/${this.state.open}`}></Link>
+                                    <Link to='/check'></Link>
 
                                 </Menu.Item>
 
@@ -128,37 +121,12 @@ class Home extends Component {
                                     请假申请
                                     <Link to="/holiday"></Link>
                                 </Menu.Item>
-                                {/* <SubMenu
-                                    key="sub1"
-                                    title={
-                                        <span>
-                                            <Icon type="database" />
-                                            <span>管理信息</span>
-                                        </span>
-                                    }
-                                >
-                                    <Menu.Item key="5">
-                                        <Link to='/alluser'>所有员工信息</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="6">Bill</Menu.Item>
-                                    <Menu.Item key="7">Alex</Menu.Item>
-                                </SubMenu> */}
                                 {this.returnm()}
 
                             </Menu>
-
                         </Sider>
                         <Layout>
-                            <Header style={{
-                                // background: 'rgba(37, 122, 201, 0.2)',
-                                background: '#ffff',
-                                textAlign: 'center', padding: 0
-                            }} >
-
-                            </Header>
-
                             <Content style={{ margin: '20px 16px 0' }}>
-
                                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 
                                     {/* {this.returnm()} */}
@@ -166,12 +134,13 @@ class Home extends Component {
                                     {/* <Route path="/home/check/:open" component={Check_in}></Route> */}
                                     <Route path="/user" component={User}></Route>
                                     <Route path="/holiday" component={Holiday}></Route>
+                                    <Route path="/check" component={Check}></Route>
                                     <Route path="/payroll" component={Payroll}></Route>
                                     <Route path="/alluser" component={Alluser}></Route>
                                     <Route path="/inputpay" component={Inputpay}></Route>
                                     <Route path="/makeholiday" component={Makeholiday}></Route>
                                     <Route path="/attendance" component={Attendance}></Route>
-                                    <Route exact path="/" component={result}></Route>
+                                    <Route  path="/home" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

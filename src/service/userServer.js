@@ -10,10 +10,12 @@ class UserService {
             id: '',  //返回的用户id
             name: '',
             data: [],
-            paydata:[],
+            paydata: [],
             info: '',//信息
             succeed: false, //登录是否成功
             reg: false,
+            time: false
+            // number:0
         })
 
     }
@@ -157,7 +159,7 @@ class UserService {
 
                         job_info: response.data.job_info.find(checkAdult),
                         department: response.data.job_info.find(checkAdult).department,
-                        position:response.data.job_info.find(checkAdult).position
+                        position: response.data.job_info.find(checkAdult).position
                     });
                 }
 
@@ -181,7 +183,7 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('工资成功', response.data, response.data[response.data.length - 1]);
+                // console.log('工资成功', response.data, response.data[response.data.length - 1]);
 
                 // data.push(response.data)
                 for (let i = 0; i < response.data.length - 1; i++) {
@@ -204,7 +206,7 @@ class UserService {
     }
 
     //提交工资信息
-    postpay(id,name,time,basic_wage,subsidy,deduction,pay) {
+    postpay(id, name, time, basic_wage, subsidy, deduction, pay) {
         let url = 'api/user/postpay'
         axios.post(
             url, {
@@ -235,7 +237,7 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('拿到工资成功', response.data.query, response.data.query.length);
+                // console.log('拿到工资成功', response.data.query, response.data.query.length);
                 // data.push(response.data)
                 // return response.data
                 // data=response.data.query
@@ -274,7 +276,7 @@ class UserService {
             }
         )
             .then((response) => {
-                console.log('入职信息', response, response.statusText);
+                // console.log('入职信息', response, response.statusText);
                 // this.getinfo()
                 alert('职位信息修改成功')
                 // this.update = (new Date()).getTime()
@@ -285,7 +287,7 @@ class UserService {
     }
 
     //提交请假申请
-    post_holiday(start_time,end_time,reason, status) {
+    post_holiday(start_time, end_time, reason, status) {
         let url = 'api/user/post_holiday'
         axios.post(
             url, {
@@ -299,7 +301,7 @@ class UserService {
             .then((response) => {
                 // console.log('提交请假申请', response,);
                 alert('请假提交成功')
-                this.get_holiday()
+                // this.get_holiday()
                 // this.update = (new Date()).getTime()
             })
             .catch((error) => {
@@ -317,7 +319,7 @@ class UserService {
             }
         })
             .then(response => {
-                console.log('拿到请假成功', response.data.query, response.data.query.length);
+                // console.log('拿到请假成功', response.data.query, response.data.query.length);
                 // data.push(response.data)
                 // return response.data
                 // data=response.data.query
@@ -326,12 +328,85 @@ class UserService {
                         id: response.data.query[i].id,
                         // name: response.data[response.data.length - 1],
                         name: response.data.query[i].name,
-
                         start_time: response.data.query[i].start_time,
                         end_time: response.data.query[i].end_time,
                         reason: response.data.query[i].reason,
                         status: response.data.query[i].status,
                         hid: response.data.query[i].hid_id
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('get失败', error);
+            })
+        return data
+    }
+
+    //提交审批的请假申请
+    post_make_holiday(user_id, status) {
+        let url = 'api/user/post_make_holiday'
+        axios.post(
+            url, {
+            userid: user_id,
+            status: status,
+        })
+            .then((response) => {
+                // console.log('提交审批请假申请', response);
+                alert('请假提交成功')
+                // this.get_holiday()
+                // this.update = (new Date()).getTime()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    //提交打卡
+    post_check_in(time) {
+        let url = 'api/user/post_check_in'
+        axios.post(
+            url, {
+            userid: this.id,
+            // status: status,
+            name: this.name,
+            time: time,
+            department: this.info.department
+        })
+            .then((response) => {
+                // console.log('打卡', response);
+                this.time = true
+                // alert('请假提交成功')
+                // this.get_holiday()
+                // this.update = (new Date()).getTime()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    get_attendance() {
+        let data = []
+        // let name=this.name
+        let surl = '/api/user/get_attendance'
+        axios.get(surl, {
+            params: {
+            }
+        })
+            .then(response => {
+                console.log('签到', response.data.query, response.data.query.length);
+                // data.push(response.data)
+                // return response.data
+                // data=response.data.query
+                for (let i = 0; i < response.data.query.length; i++) {
+                    data.push({
+                        id: response.data.query[i].id,
+                        // name: response.data[response.data.length - 1],
+                        name: response.data.query[i].name,
+                        department: response.data.query[i].department,
+                        time: response.data.query[i].time,
+                        late: response.data.query[i].late,
+                        // status: response.data.query[i].status,
+                        aid: response.data.query[i].Aid_id
                     });
                 }
             })

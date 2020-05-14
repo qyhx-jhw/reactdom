@@ -8,50 +8,11 @@ import {
     Button,
     // Select
 } from 'antd';
+import userServer from '../../../service/userServer';
 
 const { MonthPicker } = DatePicker;
-const expandedRowRender = () => {
-    const columns = [
-        { title: '序号', dataIndex: 'id', key: 'id' },
-        { title: '姓名', dataIndex: 'name', key: 'name' },
-        { title: '部门', dataIndex: 'department', key: 'department' },
-        {
-            title: '时间',
-            children: element
-        },
-        { title: '请假', dataIndex: 'late', key: 'late' },
-    ];
-    const data = [
-        {
-            id: 1,
-            name: '小张',
-            time: '2019-09-05 15:12:00',
-            start_time: '2019-09-06',
-            end_time: '2019-09-08',
-            reason: '家中有事',
-            status: 0,
-        },
-        {
-            id: 2,
-            name: '小张',
-            time: '2019-08-20 15:12:00',
-            start_time: '2019-08-21',
-            end_time: '2019-08-22',
-            reason: '父母来看我',
-            status: 0,
-        },
-        {
-            id: 3,
-            name: '小张',
-            time: '2019-07-20 15:12:00',
-            start_time: '2019-07-21',
-            end_time: '2019-07-22',
-            reason: '和朋友去爬山',
-            status: 0,
-        }
-    ];
-    return <Table columns={columns} dataSource={data} pagination={false} />;
-}
+const aaa = userServer.get_attendance()
+const data = userServer.getalluser();
 var element = []
 for (let index = 1; index <= 30; index++) {
     element.push({
@@ -59,58 +20,78 @@ for (let index = 1; index <= 30; index++) {
         dataIndex: index,
         key: index,
         render: (text, record) => {
-            
-            if (record.id === 1 && index===15) {
+            if (!text) {
                 return (
                     <Badge status="error" />
                 )
-            }else{
+            } else {
                 return (
                     <Badge status="success" />
                 )
             }
-
         }
     })
 }
-// const { Option } = Select;
-const columns = [
-    { title: '序号', dataIndex: 'id', key: 'id' },
-    { title: '姓名', dataIndex: 'name', key: 'name' },
-    { title: '部门', dataIndex: 'department', key: 'department' },
-    {
-        title: '时间',
-        children: element
-    },
-    { title: '请假', dataIndex: 'late', key: 'late' },
-];
-const data = [
-    {
-        id: 1,
-        name: '小张',
-        department: '人事部',
-        late: '有',
-
-    },
-    {
-        id: 2,
-        name: '小李',
-        department: '采购部',
-        late: '无',
-    },
-    {
-        id: 3,
-        name: '小钱',
-        department: '技术部',
-        late: '无',
-    }
-];
 
 
 class Attendance1 extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            data: []
+        };
+        this.columns = [
+            { title: '序号', dataIndex: 'key', key: 'key' },
+            { title: '姓名', dataIndex: 'name', key: 'name' },
+            { title: '部门', dataIndex: 'department', key: 'department' },
+            {
+                title: '时间',
+                children: element
+            },
+            { title: '请假', dataIndex: 'late', key: 'late' },
+        ];
+    }
+
+    onchange = () => {
+        let i = 1
+        let values = []
+        for (let index = 0; index < data.length; index++) {
+            // for (let j = 1; j <= 30; j++) {
+            values.push({
+                key: i++,
+                id: data[index].id,
+                name: data[index].name,
+                department: data[index].department,
+                // ...aaa.time
+                // j: aaa[j].time,
+                // time: aaa[index].time,
+                // late: aaa[index].late,
+                // aid: aaa[index].Aid_id
+
+                // id: aaa[index].id,
+                // name: aaa[index].name,
+                // start_time: aaa[index].start_time,
+                // end_time: aaa[index].end_time,
+                // reason: aaa[index].reason,
+                // status: aaa[index].status,
+                // hid: aaa[index].hid
+            })
+            // }
+        }
+        let v_data = []
+        for (let j = 0; j <= values.length; j++) {
+            for (let i = 0; i < aaa.length; i++) {
+                // const element = array[i];
+                if (j+1 === aaa[i].aid) {
+
+                    values[j][i + 1] = aaa[i].time
+                }
+            }
+        }
+        console.log('8777', v_data)
+        this.setState({
+            data: values
+        })
     }
 
     handleSubmit = e => {
@@ -124,10 +105,13 @@ class Attendance1 extends Component {
                 'month-picker': fieldsValue['month-picker'].format('YYYY-MM'),
             };
             console.log('Received values of form: ', values);
+            this.onchange()
+            // userServer.get_attendance()
         });
     };
 
     render() {
+        console.log(this.state.data)
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -154,9 +138,9 @@ class Attendance1 extends Component {
                 </Form>
                 <Table
                     className="components-table-demo-nested"
-                    columns={columns}
-                    expandedRowRender={expandedRowRender}
-                    dataSource={data}
+                    columns={this.columns}
+                    // expandedRowRender={expandedRowRender}
+                    dataSource={this.state.data}
                     bordered
                     size={"small"}
                 />

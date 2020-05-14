@@ -1,141 +1,142 @@
 import React, { Component } from 'react';
 import {
-    Table, Badge,
+    Table, Badge, Form,
     // Menu, Dropdown, Icon,
     Button, Select
 } from 'antd';
-
-const expandedRowRender = () => {
+import userServer from '../../../service/userServer'
+const aaa = userServer.get_holiday()//获得所有请假信息
+const { Option } = Select;
+//展开项列表
+const expandedRowRender = (record) => {
+    console.log('个人假期', record)
+    var data = []
+    let i = 1
+    for (let index = 0; index < aaa.length; index++) {
+        if (record.hid === aaa[index].hid && aaa[index].status !== '审批中') {
+            data.push({
+                key: i++,
+                id: aaa[index].id,
+                name: aaa[index].name,
+                start_time: aaa[index].start_time,
+                end_time: aaa[index].end_time,
+                reason: aaa[index].reason,
+                status: aaa[index].status,
+                hid: aaa[index].hid
+            })
+        }
+    }
     const columns = [
-        { title: '序号', dataIndex: 'id', key: 'id' },
+        { title: '序号', dataIndex: 'key', key: 'key' },
         { title: '姓名', dataIndex: 'name', key: 'name' },
-        { title: '提交时间', dataIndex: 'time', key: 'time' },
         { title: '起始时间', dataIndex: 'start_time', key: 'start_time' },
         { title: '结束时间', dataIndex: 'end_time', key: 'end_time' },
         { title: '请假理由', dataIndex: 'reason', key: 'reason' },
-        // { title: '状态', dataIndex: 'status', key: 'status' },
         {
-            title: '状态',
+            title: '审核状态',
+            dataIndex: 'status',
             key: 'status',
-            render: () => (
-                <span>
-                    <Badge status="success" />
-                    同意
-                </span>
-            )
+            // ellipsis: true,
+            render: (text, render) => <div>
+                {text === '审批中' && <Badge status="processing" text="审批中" />}
+                {text === '同意' && <Badge status="success" text="同意" />}
+                {text === '不同意' && <Badge status="error" text="不同意" />}
+            </div>
         },
-
     ];
-    const data = [
-        {
-            id: 1,
-            name: '小张',
-            time: '2019-09-05 15:12:00',
-            start_time: '2019-09-06',
-            end_time: '2019-09-08',
-            reason: '家中有事',
-            status: 0,
-        },
-        {
-            id: 2,
-            name: '小张',
-            time: '2019-08-20 15:12:00',
-            start_time: '2019-08-21',
-            end_time: '2019-08-22',
-            reason: '父母来看我',
-            status: 0,
-        },
-        {
-            id: 3,
-            name: '小张',
-            time: '2019-07-20 15:12:00',
-            start_time: '2019-07-21',
-            end_time: '2019-07-22',
-            reason: '和朋友去爬山',
-            status: 0,
-        }
-    ];
-    return <Table columns={columns} dataSource={data} pagination={false} />;
+    return <Table columns={columns} dataSource={data} pagination={false} rowKey={record => record.id} />;
 }
-const { Option } = Select;
-const columns = [
-    { title: '序号', dataIndex: 'id', key: 'id' },
-    { title: '姓名', dataIndex: 'name', key: 'name' },
-    { title: '时间', dataIndex: 'time', key: 'time' },
-    { title: '起始时间', dataIndex: 'start_time', key: 'start_time' },
-    { title: '结束时间', dataIndex: 'end_time', key: 'end_time' },
-    { title: '请假理由', dataIndex: 'reason', key: 'reason' },
-    // { title: '状态', dataIndex: 'status', key: 'status' },
-    {
-        title: '状态',
-        key: 'status',
-        render: () => (
-            <Select defaultValue="审批中" style={{ width: 120 }} >
-                <Option value="同意">同意</Option>
-                <Option value="不同意">不同意</Option>
-            </Select>
-        )
-    },
-    { title: '操作', key: 'operation', render: () => <Button type="primary" ghost>提交</Button> },
-];
-const data = [
-    {
-        id: 1,
-        name: '小张',
-        time: '2019-10-05 15:12:00',
-        start_time: '2019-10-06',
-        end_time: '2019-10-08',
-        reason: '家中有事',
-        status: 0,
-    },
-    {
-        id: 2,
-        name: '小李',
-        time: '2019-11-20 15:12:00',
-        start_time: '2019-11-21',
-        end_time: '2019-11-22',
-        reason: '朋友结婚',
-        status: 0,
-    },
-    {
-
-        id: 3,
-            name: '小王',
-            time: '2019-11-20 15:12:00',
-            start_time: '2019-11-21',
-            end_time: '2019-11-22',
-            reason: '朋友结婚',
-            status: 0,
-    }
-];
-// for (let i = 0; i < 3; ++i) {
-//     data.push({
-//         key: i,
-//         id: i,
-//         name: 'Screem'+i,
-//         reason: '家中有事',
-//         status: '0',
-//         time: '2014-12-24 23:12:00',
-//     });
-// }
-
-class Makeholiday extends Component {
+//提交审核按钮类
+class Tj1 extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+    //提交函数
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values.status, this.props.user_id);
+                let user_id = this.props.user_id
+                let status = values.status
+                // console.log('请假申请: ', start_time, end_time, reason, status);
+                userServer.post_make_holiday(user_id,status)
+            }
+        });
+    };
     render() {
+        const { getFieldDecorator } = this.props.form;
+        return (
+            <div>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Item>
+                        {getFieldDecorator('status', {
+                            rules: [{ required: true, message: '请输入请假理由' }],
+                            // initialValue: '审批中'
+                        })(
+                            <Select  style={{ width: 120 }} >
+                                <Option value="同意">同意</Option>
+                                <Option value="不同意">不同意</Option>
+                            </Select>
+                        )}
+                    <Button type="primary" htmlType="submit" >提交</Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        );
+    }
+}
+const Tj = Form.create({ name: 'holiday' })(Tj1);
+
+
+//审核请假组件
+class Makeholiday extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            user_data: []
+        };
+        let i = 1
+        for (let index = 0; index < aaa.length; index++) {
+            if (aaa[index].status === '审批中') {
+                this.state.data.push({
+                    key: i++,
+                    id: aaa[index].id,
+                    name: aaa[index].name,
+                    start_time: aaa[index].start_time,
+                    end_time: aaa[index].end_time,
+                    reason: aaa[index].reason,
+                    status: aaa[index].status,
+                    hid: aaa[index].hid
+                })
+            }
+        }
+        // const { getFieldDecorator } = this.props.form;
+        this.columns = [
+            { title: '序号', dataIndex: 'key', key: 'key' },
+            { title: '姓名', dataIndex: 'name', key: 'name' },
+            { title: '起始时间', dataIndex: 'start_time', key: 'start_time' },
+            { title: '结束时间', dataIndex: 'end_time', key: 'end_time' },
+            { title: '请假理由', dataIndex: 'reason', key: 'reason' },
+            { title: '状态', dataIndex: 'status', key: 'status' },
+            {title: '操作', key: 'operation', render: (text, record) => <Tj user_id={record.id}> </Tj>}
+        ];
+    }
+    render() {
+        // const { getFieldDecorator } = this.props.form;
         return (
             <div>请假审核处理
                 <Table
-                    className="components-table-demo-nested"
-                    columns={columns}
-                    expandedRowRender={expandedRowRender}
-                    dataSource={data}
+                    rowKey={record => record.id}
+                    // className="components-table-demo-nested"
+                    columns={this.columns}
+                    expandedRowRender={record => expandedRowRender(record)}
+                    dataSource={this.state.data}
                 />
             </div>
         );
     }
 }
-
 export default Makeholiday;

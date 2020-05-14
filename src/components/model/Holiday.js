@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 // import { Table, Comment, Avatar, Form, Button, List, Input } from 'antd';
-import { Form, Icon, Input, Button, Table, DatePicker, Badge } from 'antd';
-import moment from 'moment';
+import { Form, Input, Button, Table, DatePicker, Badge } from 'antd';
+// import moment from 'moment';
 import userServer from '../../service/userServer'
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const columns = [
     {
         title: '序号',
-        dataIndex: 'id',
-        key: 'id',
+        dataIndex: 'key',
+        key: 'key',
         defaultSortOrder: 'ascend'
 
         // render: text => <p>{text}</p>,
@@ -50,63 +50,40 @@ const columns = [
         render: (text, render) => <div>
             {text === '审批中' && <Badge status="success" text="审批中" />}
             {text === '同意' && <Badge status="processing" text="同意" />}
-            {text === '不同意' && <Badge status="error" text="审核中" />}
+            {text === '不同意' && <Badge status="error" text="不同意" />}
         </div>
     },
 ];
 const aaa = userServer.get_holiday()
-// var data = []
-// for (let index = 0; index < aaa.length; index++) {
-//     // console.log('shuju', aaa[index])
-//     if (userServer.id === aaa[index].hid) {
-//         // console.log('shuju', aaa[index])
-//         data.push(aaa[index])
-//     }
-// }
-// for (let index = 1; index < 20; index++) {
-//     data.push({
-//         id: index,
-//         name: 'Joe Black',
-//         time: '2019-05-20',
-//         reason: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park,Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
-//         status: '同意',
-
-//     })
-
-// }
-
 
 class Holiday1 extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data:[]
-        }
         // const aaa = userServer.get_holiday()
+        this.state = {
+            data: []
+        }
         // var data = []
+        let i = 1
         for (let index = 0; index < aaa.length; index++) {
             // console.log('shuju', aaa[index])
             if (userServer.id === aaa[index].hid) {
-                console.log('shuju', aaa[index])
-                this.state.data.push(aaa[index])
+                // console.log('shuju', aaa[index])
+                
+                this.state.data.push({
+                    key:i++,
+                    id:aaa[index].id,
+                    name: aaa[index].name,
+                    start_time: aaa[index].start_time,
+                    end_time: aaa[index].end_time,
+                    reason: aaa[index].reason,
+                    status: aaa[index].status,
+                    hid: aaa[index].hid
+                })
             }
         }
     }
-    // componentDidMount() {
-    //     // To disable submit button at the beginning.
-    //     this.props.form.validateFields();
-    // }
-    // componentDidMount() {
-    //     const aaa = userServer.get_holiday()
-    //     // var data = []
-    //     for (let index = 0; index < aaa.length; index++) {
-    //         // console.log('shuju', aaa[index])
-    //         if (userServer.id === aaa[index].hid) {
-    //             console.log('shuju', aaa[index])
-    //             this.state.data.push(aaa[index])
-    //         }
-    //     }
-    // }
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -116,6 +93,7 @@ class Holiday1 extends Component {
                     'start_time': values['time'][0].format('YYYY-MM-DD'),
                     'end_time': values['time'][1].format('YYYY-MM-DD'),
                 }
+                userServer.number++
                 console.log('Received values of form: ', value);
                 let start_time = value.start_time
                 let end_time = value.end_time
@@ -133,6 +111,7 @@ class Holiday1 extends Component {
         // const { comments, submitting, value } = this.state;
         const { getFieldDecorator } = this.props.form;
         // Only show error after a field is touched.
+        console.log('6988',this.state.data)
         return (
             <div>
                 历史记录
