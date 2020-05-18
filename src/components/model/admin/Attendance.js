@@ -22,11 +22,15 @@ for (let index = 1; index <= 30; index++) {
         render: (text, record) => {
             if (!text) {
                 return (
-                    <Badge status="error" />
+                    // <Badge status="error" />
+                    <Badge status="success" />
+
                 )
             } else {
                 return (
-                    <Badge status="success" />
+                    // <Badge status="success" />
+                    <Badge status="error" />
+
                 )
             }
         }
@@ -62,6 +66,7 @@ class Attendance1 extends Component {
                 id: data[index].id,
                 name: data[index].name,
                 department: data[index].department,
+                late: data[index].late
                 // ...aaa.time
                 // j: aaa[j].time,
                 // time: aaa[index].time,
@@ -83,7 +88,6 @@ class Attendance1 extends Component {
             for (let i = 0; i < aaa.length; i++) {
                 // const element = array[i];
                 if (j+1 === aaa[i].aid) {
-
                     values[j][i + 1] = aaa[i].time
                 }
             }

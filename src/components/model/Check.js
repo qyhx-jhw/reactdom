@@ -10,14 +10,14 @@ class Check extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value:''
+            value: ''
         };
     }
 
     post_time = (time) => {
         console.log('时间', time)
         this.setState({
-            value:time
+            value: time
         })
         userServer.post_check_in(time)
     }
@@ -42,11 +42,8 @@ class Check extends Component {
                 ]}
             />
         }
-
     }
     render() {
-        // const { value, selectedValue } = this.state;
-        // console.log()
         return (
             <div>
                 <Row>
@@ -58,34 +55,20 @@ class Check extends Component {
                                 borderRadius: 4
                             }}>
                             打卡签到
-                            {/* <Alert
-                                message={`你选择的时间: ${selectedValue.format('YYYY-MM-DD')}`}
-                            /> */}
                             <Calendar
-                                // onSelect={this.onSelect}
                                 fullscreen={true}
-                                // onPanelChange={this.onPanelChange}
                                 style={{ width: 600 }} />
                         </div>
                     </Col>
                     <Col span={12}>
-                        {/* <Result
-                            style={{ width: 300 }}
-                            status="success"
-                            title="成功登录人事管理系统"
-                            subTitle={`"登录时间：" ${moment().format('MMMM Do , h:mm:ss a')}`}
-                            extra={[
-                            ]}
-                        /> */}
                         {this.returnm(this.state.value)}
-                        <Button type="primary" onClick={a=>this.post_time(moment().format('YYYY-MM-DD'))}>点击签到</Button>
+                        <Button type="primary" onClick={a => this.post_time(moment().format('YYYY-MM-DD'))}>点击签到</Button>
                     </Col>
                 </Row>
-
             </div>
         );
     }
 }
 // import { observer } from 'mobx-react'
 
-export default  observer(Check) ;
+export default observer(Check);

@@ -19,57 +19,57 @@ class Alluser extends Component {
             {
                 title: '序号',
                 dataIndex: 'id',
-                key:'id'
-                // width: 100,
+                key:'id',
+                width: 60,
             },
             {
                 title: '姓名',
                 dataIndex: 'name',
-                key:'name'
-                // width: 100,
+                key:'name',
+                width: 60,
             },
             {
                 title: '邮箱',
                 dataIndex: 'email',
-                key:'email'
-                // width: 100,
+                key:'email',
+                width: 200,
             },
             {
                 title: '手机号',
                 dataIndex: 'phone',
-                key:'phone'
-                // width: 100,
+                key:'phone',
+                width: 120,
             },
             {
                 title: '性别',
                 dataIndex: 'gender',
-                key:'gender'
-                // width: 100,
+                key:'gender',
+                width: 60,
             },
             {
                 title: '出生日期',
                 dataIndex: 'birthday',
-                key:'birthday'
-                // width: 100,
+                key:'birthday',
+                width: 120,
             },
             {
                 title: '身份证',
                 dataIndex: 'IDcard',
-                key:'IDcard'
-                // width: 100,
+                key:'IDcard',
+                width: 200,
             },
             {
                 title: '常住地址',
                 dataIndex: 'residence',
-                key:'residence'
-                // width: 100,
+                key:'residence',
+                width: 200,
             },
-            {
+            // {
                 // title: 'job',
-                dataIndex: 'job_info',
-                key:'job_info'
+                // dataIndex: 'job_info',
+                // key:'job_info'
                 // width: 100,
-            },
+            // },
             {
                 title: '提交',
                 dataIndex: 'x1',

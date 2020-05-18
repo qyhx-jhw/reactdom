@@ -56,7 +56,7 @@ class Login extends Component {
 
         if (userServer.succeed) {
             console.log('跳转成功')
-            return <Redirect to='/home'/>
+            return <Redirect to='/'/>
         }
         return (
             <div style={{ padding: '15% 35%' }}>
@@ -84,13 +84,6 @@ class Login extends Component {
                     </Form.Item>
                     <Form.Item>
                         <Captcha></Captcha>
-                        {/* <Button
-                            type="dashed"
-                            id='TencentCaptcha'
-                            data-appid="2015130461"
-                            data-cbfn="callback"
-                            className="login-form-button"
-                        >获取验证码</Button> */}
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>

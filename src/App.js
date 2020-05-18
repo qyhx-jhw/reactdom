@@ -3,9 +3,8 @@ import {
   BrowserRouter as Router, Route,
   Link
 } from "react-router-dom";
-import { ConfigProvider, Layout, Menu} from 'antd';
+import { ConfigProvider, Layout, Menu } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
-// import IMG from './assets/images/lt.jpg'
 
 import './assets/css/App.css'
 
@@ -23,37 +22,23 @@ class App extends Component {
     return (
       <ConfigProvider locale={zhCN}>
         <Router>
-            <Header style={{ height: '35px' }}>
-              <Menu
-                theme="dark"
-                mode="horizontal"
-                defaultSelectedKeys={['1']}
-                style={{ lineHeight: '34px' }}
-              >
-                <Menu.Item key="1"><Link to="/">登录</Link></Menu.Item>
-                <Menu.Item key="2"><Link to="/register">注册</Link></Menu.Item>
-                <Menu.Item key="3"><Link to="/home">主页</Link></Menu.Item>
-              </Menu>
-            </Header>
-            {/* <header>
-              <ul>
-                <li><Link to="/login">登录</Link> </li>
-                <li><Link to="/">登录</Link> </li>
-                <li><Link to="/register">注册</Link></li>
-                <li><Link to="/home">主页</Link></li>
-              </ul>
-              <hr />
-            </header> */}
+          <Header style={{ height: '35px' }}>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['1']}
+              style={{ lineHeight: '34px' }}
+            >
+              <Menu.Item key="1"><Link to="/login">登录</Link></Menu.Item>
+              <Menu.Item key="2"><Link to="/register">注册</Link></Menu.Item>
+              <Menu.Item key="3"><Link to="/">主页</Link></Menu.Item>
+            </Menu>
+          </Header>
+          <Route exact path="/login" component={LoginFrom}></Route>
+          <Route path="/register" ><RegistrationForm /></Route>
+          <Route exact path="/" component={Home}></Route>
 
-            <Route exact path="/" component={LoginFrom}></Route>
-            {/* <Route exact path="/register" component={RegistrationForm}></Route> */}
-            <Route  path="/register" ><RegistrationForm /></Route>
-            <Route  path="/home" component={Home}></Route>
-            {/* <Route exact path="/home" component={Home}></Route> */}
-
-          
         </Router>
-
       </ConfigProvider>
 
     );

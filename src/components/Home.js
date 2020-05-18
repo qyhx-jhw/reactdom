@@ -7,11 +7,10 @@ import Holiday from './model/Holiday'
 import Alluser from './model/admin/Alluser'
 import Inputpay from './model/admin/Inputpay'
 import Check from './model/Check'
-
 import Makeholiday from './model/admin/Makeholiday'
 import Attendance from './model/admin/Attendance'
 // import IMG from '../assets/images/lt.jpg'
-import store from 'store'
+// import store from 'store'
 import { observer } from 'mobx-react'
 import moment from 'moment';
 import userServer from '../service/userServer'
@@ -68,10 +67,10 @@ class Home extends Component {
 
     render() {
         // if (!store.get('token')) {
-        //     return <Redirect to='/' />
+        //     return <Redirect to='/login' />
         // }
         if (!userServer.succeed) {
-            return <Redirect to='/' />
+            return <Redirect to='/login' />
         }
         return (
             <div>
@@ -94,7 +93,9 @@ class Home extends Component {
                             {/* <div className="logo" >
                                 <img src={IMG} height='42px' alt='沙漠骆驼'></img>
                             </div> */}
-                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} >
+                            <Menu theme="dark" mode="inline"
+                                // defaultSelectedKeys={['1']}
+                            >
                                 <Menu.Item key="1">
 
                                     <Icon type="smile" theme="outlined" />
@@ -140,7 +141,7 @@ class Home extends Component {
                                     <Route path="/inputpay" component={Inputpay}></Route>
                                     <Route path="/makeholiday" component={Makeholiday}></Route>
                                     <Route path="/attendance" component={Attendance}></Route>
-                                    <Route  path="/home" component={result}></Route>
+                                    <Route exact path="/" component={result}></Route>
                                     {/* {this.state.open ? <Check_in></Check_in> : ''} */}
                                 </div>
                             </Content>

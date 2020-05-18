@@ -48,8 +48,8 @@ const columns = [
         key: 'status',
         // ellipsis: true,
         render: (text, render) => <div>
-            {text === '审批中' && <Badge status="success" text="审批中" />}
-            {text === '同意' && <Badge status="processing" text="同意" />}
+            {text === '审批中' && <Badge status="processing" text="审批中" />}
+            {text === '同意' && <Badge status="success" text="同意" />}
             {text === '不同意' && <Badge status="error" text="不同意" />}
         </div>
     },
